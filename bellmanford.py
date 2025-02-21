@@ -3,6 +3,7 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
+from genGraphs.py import genGraph0
 
 def bellmanFord(graph, source):
     vertices = set()
@@ -38,14 +39,7 @@ def bellmanFordQueue(graph, source):
     
     return dist
 
-def genGraph(n):
-    graph = {}
 
-    for i in range(1,n+1):
-        for j in range(1, n+1):
-            if i != j:
-                graph[(i,j)] = graph[(j,i)] = np.random.rand()
-    return graph
 
 def randomSample():
     sizes = list(range(10,210,10))
@@ -57,7 +51,7 @@ def randomSample():
         bfq_total_time = 0
 
         for _ in range(75):
-            graph = genGraph(n)
+            graph = genGraph0(n)
             start = time.time()
             bellmanFord(graph,0)
             bf_total_time += time.time() - start
