@@ -3,69 +3,116 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from genGraphs.py import genGraph0
+from genGraphs.py import genGraph0, genGraph1, genGraph2, genGraph3, genGraph4
 
-def bellmanFord(graph, source):
-    vertices = set()
-    for u,v in graph:
-        vertices.add(u)
-        vertices.add(v)
-    dist = {vertex: float('infinity') for vertex in vertices}
-    dist[source] = 0
-    prev = {source: None}
+def parent(v):
+    return v // 2
+def leftchild(v):
+    return 2 * v
+def rightchild(v):
+    return 2 * v + 1
+def heapify(arr, s):
+    min = s
+    left = leftchild(s)
+    right = rightchild(s)
+    if arr[left] < arr[min]:
+        min = left
+    if arr[right] < arr[min]:
+        min = right
+    if min != s:
+        arr[s], arr[min] = arr[min], arr[s]
+        return heapify(arr,min)
+    else:
+        return arr
+        
 
-    for i in range(len(dist)-1):
-        for u,v in graph:
-            if dist[u] + graph[(u,v)] < dist[v]:
-                prev[v] = u
-                dist[v] = dist[u] + graph[(u,v)]
-    return dist, prev
 
-def bellmanFordQueue(graph, source):
-    vertices = set()
-    for u, v in graph:
-        vertices.add(u)
-        vertices.add(v)
-    dist = {vertex: float('infinity') for vertex in vertices}
-    dist[1] = 0
-    Q = [1]
-    while Q != []:
-        u = Q.pop(0)
-        for v in vertices:
-            if (u,v) in graph and dist[u] + graph[(u,v)] < dist[v]:
-                dist[v] = dist[u] + graph[(u,v)]
-                if v not in Q:
-                    Q.append(v)
+def heapConstruct(graph):
+    value_heap = []
+    for i in graph.values():
+        value_heap.append(i)
+    value_heap = heapify(value_heap)
+    heap_graph = {}
+    for i in range(1, len(graph) + 1):
+        for key in graph.keys():
+            value = graph[key]
+            if value == value_heap:
+                heap_graph[key] = value
+    return heap_graph
     
-    return dist
 
+def prims_algo(graph, source):
+    heap_graph = heapConstruct(graph)
+    pqueue = {}
+    s = source
+    ed = heap_graph.keys
+    vertices = []
+    while ed != {}:
+        if(ed[0][0] not in vertices):
+            vertices.append([0][0])
+            ed.pop(0)
+        if(ed[0][1] not in vertices):
+            vertices.append([0][1])
+            ed.pop(0)
 
+    dist = {vertex: float('infinity') for vertex in vertices}
+    dist[s] = 0
+    mst_included = {vertex: False for vertex in vertices}
+    while pqueue:
+        curr_key = list(pqueue.keys)[0]
+        curr_vert = curr_key[0]
+        mst_included[curr_vert] = True
+        for key, value in heap_graph():
+            if key[0] not in mst_included.keys() and key[1] == curr_key[1] and dist[key[0]] > value:
+                dist[key[0]] = value
+                heap_graph.append(key, dist[key[0]])
+    return heap_graph
+
+def count_weight(graph):
+    sum = 0
+    for key in graph.keys:
+        sum += graph[key]
+    return sum
 
 def randomSample():
     sizes = list(range(10,210,10))
-    bf_times = []
-    bfq_times = []
+    MST_weights0 = []
+    MST_weights1 = []
+    MST_weights2 = []
+    MST_weights3 = []
+    MST_weights4 = []
 
     for n in sizes:
-        bf_total_time = 0
-        bfq_total_time = 0
-
+        curr_weight0 = 0
+        curr_weight1 = 0
+        curr_weight2 = 0
+        curr_weight3 = 0
+        curr_weight4 = 0
         for _ in range(75):
-            graph = genGraph0(n)
-            start = time.time()
-            bellmanFord(graph,0)
-            bf_total_time += time.time() - start
-            start = time.time()
-            bellmanFordQueue(graph,0)
-            bfq_total_time += time.time() - start
-        bf_times.append(bf_total_time / 75)
-        bfq_times.append(bfq_total_time / 75)
+            graph0 = genGraph0(n)
+            curr_weight0 += count_weight(prims_algo(graph0))
+            graph1 = genGraph1(n)
+            curr_weight1 += count_weight(prims_algo(graph1))
+            graph2 = genGraph2(n)
+            curr_weight2 += count_weight(prims_algo(graph2))
+            graph3 = genGraph3(n)
+            curr_weight3 += count_weight(prims_algo(graph3))
+            graph4 = genGraph4(n)
+            curr_weight4 += count_weight(prims_algo(graph4))
+        MST_weights0.append(curr_weight0 / 75)
+        MST_weights1.append(curr_weight1 / 75)
+        MST_weights2.append(curr_weight2 / 75)
+        MST_weights3.append(curr_weight3 / 75)
+        MST_weights4.append(curr_weight4 / 75)
     plt.figure(figsize=(10,6))
-    plt.plot(sizes,bf_times,label="Bellman-Ford",marker='o')
-    plt.plot(sizes,bfq_times,label="Bellman-Ford Queue", marker='s')
+    plt.plot(sizes,MST_weights0,label="Type 0 Graphs",marker='o')
+    plt.plot(sizes,MST_weights1,label="Type 1 Graphs", marker='g')
+    plt.plot(sizes,MST_weights2,label="Type 2 Graphs", marker='b')
+    plt.plot(sizes,MST_weights3,label="Type 3 Graphs", marker='c')
+    plt.plot(sizes,MST_weights4,label="Type 4 Graphs", marker='k')
     plt.xlabel("Number of Vertices (n)")
-    plt.ylabel("Average Runtime (seconds)")
-    plt.title("Bellman-Ford vs. Bellman-Ford Queue Performance")
+    plt.ylabel("Average Weight")
+    plt.title("Expected Weight of Type 0-4 Graphs Based on Size")
     plt.legend()
     plt.grid(True)
     plt.show()
