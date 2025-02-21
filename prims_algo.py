@@ -15,9 +15,12 @@ def heapify(arr, s):
     min = s
     left = leftchild(s)
     right = rightchild(s)
-    if arr[left] < arr[min]:
+    print("arr[min]" + str(arr[min]))
+    if left < len(arr) and arr[left] < arr[min]:
+        print("arr[left]: " + str(arr[left]))
         min = left
-    if arr[right] < arr[min]:
+    if right < len(arr) and arr[right] < arr[min]:
+        print("arr[right]: " + str(arr[right]))
         min = right
     if min != s:
         arr[s], arr[min] = arr[min], arr[s]
@@ -31,12 +34,13 @@ def heapConstruct(graph):
     value_heap = []
     for i in graph.values():
         value_heap.append(i)
-    value_heap = heapify(value_heap)
+    value_heap = heapify(value_heap,1)
+    print(value_heap)
     heap_graph = {}
-    for i in range(1, len(graph) + 1):
+    for i in range(len(value_heap)):
         for key in graph.keys():
             value = graph[key]
-            if value == value_heap:
+            if value == value_heap[i]:
                 heap_graph[key] = value
     return heap_graph
     
@@ -45,9 +49,10 @@ def prims_algo(graph, source):
     heap_graph = heapConstruct(graph)
     pqueue = {}
     s = source
-    ed = heap_graph.keys
+    keylist = list(heap_graph.keys())
+    ed = keylist
     vertices = []
-    while ed != {}:
+    while ed:
         if(ed[0][0] not in vertices):
             vertices.append([0][0])
             ed.pop(0)
@@ -90,15 +95,15 @@ def randomSample():
         curr_weight4 = 0
         for _ in range(75):
             graph0 = genGraph0(n)
-            curr_weight0 += count_weight(prims_algo(graph0))
+            curr_weight0 += count_weight(prims_algo(graph0, 0))
             graph1 = genGraph1(n)
-            curr_weight1 += count_weight(prims_algo(graph1))
+            curr_weight1 += count_weight(prims_algo(graph1, 0))
             graph2 = genGraph2(n)
-            curr_weight2 += count_weight(prims_algo(graph2))
+            curr_weight2 += count_weight(prims_algo(graph2, 0))
             graph3 = genGraph3(n)
-            curr_weight3 += count_weight(prims_algo(graph3))
+            curr_weight3 += count_weight(prims_algo(graph3, 0))
             graph4 = genGraph4(n)
-            curr_weight4 += count_weight(prims_algo(graph4))
+            curr_weight4 += count_weight(prims_algo(graph4, 0))
         MST_weights0.append(curr_weight0 / 75)
         MST_weights1.append(curr_weight1 / 75)
         MST_weights2.append(curr_weight2 / 75)
