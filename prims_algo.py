@@ -11,68 +11,12 @@ def leftchild(v):
     return 2 * v + 1
 def rightchild(v):
     return 2 * v + 2
-def heapify(arr, s, counter):
-    print("Counter: " + str(counter))
+def heapify(arr):
+    result = arr
     stop = len(arr)
-    print("Stop: " + str(stop))
-    if counter == stop:
-        return arr
-    print("Current array: " + str(arr))
-    if(s == 1):
-        print("Current vertex index: 0")
-        print("Current vertex value: " + str(arr[0]))
-        left = leftchild(s)
-        print("Left child index: " + str(left-1))
-        right = rightchild(s)
-        print("Right child index: " + str(right-1))
-        s -= 1
-
-    else:
-        s -= 1
-        print("Current vertex index: " + str(s))
-        print("Current vertex value: " + str(arr[s]))
-        left = leftchild(s)
-        print("Left child index: " + str(left-1))
-        right = rightchild(s)
-        print("Right child index: " + str(right-1))
-    min = s
-    while(left < len(arr) and right < len(arr)):
-        if left < len(arr) and arr[left-1] < arr[min - 1]:
-            print("arr[left]: " + str(arr[left-1]))
-            min = left
-        if right < len(arr) and arr[right - 1] < arr[min - 1]:
-            print("arr[right]: " + str(arr[right - 1]))
-            min = right
-        print("arr[min]: " + str(arr[min - 1]))
-        if min != s:
-            print("\nSwitching indices " + str(s) + " and " + str(min - 1))
-            arr[s], arr[min - 1] = arr[min - 1], arr[s]
-            print("Switch complete\n")
-            return heapify(arr,min,counter)
-        else:
-            counter += 1
-            print("\n Now starting at vertex " + str(counter) + "\n")
-            return heapify(arr,counter,counter)
-    counter += 1
-    print("\n Now starting at vertex " + str(counter) + "\n")
-    return heapify(arr,counter,counter)
-        
-
-
-def heapConstruct(graph):
-    value_heap = []
-    for i in graph.values():
-        value_heap.append(i)
-    print("Value heap: " + str(value_heap))
-    value_heap = heapify(value_heap,1,0)
-    print(value_heap)
-    heap_graph = {}
-    for i in range(len(value_heap)):
-        for key in graph.keys():
-            value = graph[key]
-            if value == value_heap[i]:
-                heap_graph[key] = value
-    return heap_graph
+    for i in range((n // 2) - 1, 0,-1):
+        result = pushdown(result,i)
+    return result
     
 
 def prims_algo(graph, source):
