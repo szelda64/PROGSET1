@@ -1,6 +1,6 @@
 import numpy as np
 import math
-def genGraph0(n):
+def genCompGraph(n):
     graph = []
 
     for i in range(1,n+1):
@@ -9,7 +9,7 @@ def genGraph0(n):
                 graph.append(i,j,np.random.rand())
     return graph
 
-def genGraph1(n):
+def genHyperCube(n):
     graph = []
     for i in range(1, n+1):
         for j in range(1, n+1):
@@ -17,7 +17,7 @@ def genGraph1(n):
                 graph.append(i,j,np.random.rand())
     return graph
 
-def genGraph2(n):
+def genGeoCompGraph(n):
     graph = []
     x_values = []
     y_values = []
@@ -30,7 +30,7 @@ def genGraph2(n):
                 graph.append(i,j,math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2)))
     return graph
 
-def genGraph3(n):
+def genGeoCubeGraph(n):
     graph = []
     x_values = []
     y_values = []
@@ -45,7 +45,7 @@ def genGraph3(n):
                 graph.append(i,j,math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2)+(math.abs(z_values[i-1]-y_values[j-1]) ** 2)))
     return graph
 
-def genGraph4(n):
+def genGeoHyperCube(n):
     graph = []
     x_values = []
     y_values = []
