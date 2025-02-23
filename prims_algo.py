@@ -13,31 +13,34 @@ def rightchild(v):
     return 2 * v + 2
 
 def pushup(arr,s):
-    end = len(arr)
+    result = arr
+    end = len(result)
     start = s
-    next = arr[s]
+    next = result[s]
     minchild = 2 * s + 1
     while minchild < end:
         rightchild = minchild + 1
-        if rightchild < end and arr[minchild] > arr[rightchild]:
+        if rightchild < end and result[minchild] > result[rightchild]:
             minchild = rightchild
-        arr[s] = arr[minchild]
+        result[s] = result[minchild]
         s = minchild
         minchild = 2 * s + 1
-    arr[s] = next
-    pushdown(arr,start,s)
+    result[s] = next
+    pushdown(result,start,s)
 
 def pushdown(arr,start,s):
-    next = arr[s]
+    result = arr
+    next = result[s]
     while s > start:
         max_pos = math.floor((s-1)/2)
-        max_parent = arr[max_pos]
+        max_parent = result[max_pos]
         if next < max_parent:
-            arr[s] = max_parent
+            result[s] = max_parent
             s = max_pos
         else:
             break
-    arr[s] = next
+    result[s] = next
+    return result
 
 def heapify(arr):
     result = arr
