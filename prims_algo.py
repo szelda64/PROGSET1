@@ -11,11 +11,39 @@ def leftchild(v):
     return 2 * v + 1
 def rightchild(v):
     return 2 * v + 2
+
+def pushup(arr,s):
+    end = len(arr)
+    start = s
+    next = arr[s]
+    minchild = 2 * s + 1
+    while minchild < end:
+        rightchild = minchild + 1
+        if rightchild < end and arr[minchild] > arr[rightchild]:
+            minchild = rightchild
+        arr[s] = arr[minchild]
+        s = minchild
+        minchild = 2 * s + 1
+    arr[s] = next
+    pushdown(arr,start,s)
+
+def pushdown(arr,start,s):
+    next = arr[s]
+    while s > start:
+        max_pos = math.floor((s-1)/2)
+        max_parent = arr[max_pos]
+        if next < max_parent:
+            arr[s] = max_parent
+            s = max_pos
+        else:
+            break
+    arr[s] = next
+
 def heapify(arr):
     result = arr
     stop = len(arr)
     for i in range((n // 2) - 1, 0,-1):
-        result = pushdown(result,i)
+        result = pushup(result,i)
     return result
     
 
