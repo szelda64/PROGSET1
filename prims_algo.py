@@ -5,12 +5,49 @@ import time
 import matplotlib.pyplot as plt
 from genGraphs.py import genCompGraph, genHyperCube, genGeoCompGraph, genGeoCubeGraph, genGeoHyperCube
 
-def parent(v):
-    return v // 2
-def leftchild(v):
-    return 2 * v + 1
-def rightchild(v):
-    return 2 * v + 2
+class Heap:
+    def _init_(self):
+        self.array = []
+
+    def parent(v):
+        return (v-1) // 2
+    def leftchild(v):
+        return 2 * v + 1
+    def rightchild(v):
+        return 2 * v + 2
+
+    def insert(self, v):
+        self.array.append(v)
+        n = len(self.array) - 1
+        while (n > 0) and self.array[self.parent(n)] > self.array[n]:
+            self.array[self.parent(n)], self.array[n] = self.array[n], self.array[self.parent(n)]
+            n = self.parent(n)
+
+    def minHeapify(self, n):
+        l,r = self.leftchild(n), self.rightchild(n)
+        
+        if l and self.array[l] < self.array[n]:
+            smallest = l
+        else:
+            smallest = n
+
+        if r and self.array[r] < self.array[smallest]:
+            smallest = r
+
+        if smallest != n: 
+            self.array[n], self.array[smallest] = self.array[smallest], self.array[n]
+            self.minHeapify(smallest)
+
+
+
+        
+
+# def parent(v):
+#     return v // 2
+# def leftchild(v):
+#     return 2 * v + 1
+# def rightchild(v):
+#     return 2 * v + 2
 
 def pushup(arr,s):
     result = arr
@@ -51,32 +88,66 @@ def heapify(arr):
     
 
 def prims_algo(graph, source):
-    heap_graph = heapConstruct(graph)
-    pqueue = {}
-    s = source
-    keylist = list(heap_graph.keys())
-    ed = keylist
-    vertices = []
-    while ed:
-        if(ed[0][0] not in vertices):
-            vertices.append([0][0])
-            ed.pop(0)
-        if(ed[0][1] not in vertices):
-            vertices.append([0][1])
-            ed.pop(0)
+    #graph = [[list of vertices], [list of ((start, end), weight)]]
+    verts = graph[0]
+    edges = graph[1]
 
-    dist = {vertex: float('infinity') for vertex in vertices}
-    dist[s] = 0
-    mst_included = {vertex: False for vertex in vertices}
-    while pqueue:
-        curr_key = list(pqueue.keys)[0]
-        curr_vert = curr_key[0]
-        mst_included[curr_vert] = True
-        for key, value in heap_graph():
-            if key[0] not in mst_included.keys() and key[1] == curr_key[1] and dist[key[0]] > value:
-                dist[key[0]] = value
-                heap_graph.append(key, dist[key[0]])
-    return heap_graph
+    #initialize all distances to inf, aside from source
+    dist = []
+    prev = []
+    for v in verts:
+        dist[v] = math.inf
+        prev[v] = None
+    dist[source] = 0
+    
+    mst = []
+    heap_graph = Heap()
+
+    heap_graph.insert(source, 0)
+
+    while heap_graph:
+        u = heap_graph.deleteMin
+        mst = mst.append(u)
+
+        #e = ((start, end), weight)
+        #e[0] = (start, end)
+        #for (u,v) in Edges
+        for e in (e for e in edges if e[0][0] == u):
+            if e[0][1] not in mst:
+                #if dist[v] > weight
+                if dist[v] > e[1]:
+                    dist[v] = e[1]
+                    prev[v] = u
+                    heap_graph.insert(v, dist[v])
+
+    return (dist, prev)
+
+    # heap_graph = heapConstruct(graph)
+    # pqueue = {}
+    # s = source
+    # keylist = list(heap_graph.keys())
+    # ed = keylist
+    # vertices = []
+    # while ed:
+    #     if(ed[0][0] not in vertices):
+    #         vertices.append([0][0])
+    #         ed.pop(0)
+    #     if(ed[0][1] not in vertices):
+    #         vertices.append([0][1])
+    #         ed.pop(0)
+
+    # dist = {vertex: float('infinity') for vertex in vertices}
+    # dist[s] = 0
+    # mst_included = {vertex: False for vertex in vertices}
+    # while pqueue:
+    #     curr_key = list(pqueue.keys)[0]
+    #     curr_vert = curr_key[0]
+    #     mst_included[curr_vert] = True
+    #     for key, value in heap_graph():
+    #         if key[0] not in mst_included.keys() and key[1] == curr_key[1] and dist[key[0]] > value:
+    #             dist[key[0]] = value
+    #             heap_graph.append(key, dist[key[0]])
+    # return heap_graph
 
 def count_weight(graph):
     sum = 0
