@@ -3,7 +3,7 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from genGraphs.py import genGraph0, genGraph1, genGraph2, genGraph3, genGraph4
+from genGraphs.py import genCompGraph, genHyperCube, genGeoCompGraph, genGeoCubeGraph, genGeoHyperCube
 
 def parent(v):
     return v // 2
@@ -124,15 +124,15 @@ def randomSample():
         curr_weight3 = 0
         curr_weight4 = 0
         for _ in range(75):
-            graph0 = genGraph0(n)
+            graph0 = genCompGraph(n)
             curr_weight0 += count_weight(prims_algo(graph0, 0))
-            graph1 = genGraph1(n)
+            graph1 = genHyperCube(n)
             curr_weight1 += count_weight(prims_algo(graph1, 0))
-            graph2 = genGraph2(n)
+            graph2 = genGeoCompGraph(n)
             curr_weight2 += count_weight(prims_algo(graph2, 0))
-            graph3 = genGraph3(n)
+            graph3 = genGeoCubeGraph(n)
             curr_weight3 += count_weight(prims_algo(graph3, 0))
-            graph4 = genGraph4(n)
+            graph4 = genGeoHyperCube(n)
             curr_weight4 += count_weight(prims_algo(graph4, 0))
         MST_weights0.append(curr_weight0 / 75)
         MST_weights1.append(curr_weight1 / 75)
