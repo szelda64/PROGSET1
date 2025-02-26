@@ -6,7 +6,7 @@ def genCompGraph(n):
 
     for i in range(n):
         verts.append(i)
-        for j in range(1, n+1):
+        for j in range(n):
             if i != j:
                 edges.append(((i,j),np.random.rand()))
     graph = [verts, edges]
@@ -18,7 +18,7 @@ def genHyperCube(n):
 
     for i in range(n):
         verts.append(i)
-        for j in range(1, n+1):
+        for j in range(n):
             if i != j and math.log2(math.abs(i-j)).is_integer():
                 edges.append(((i,j),np.random.rand()))
     graph = [verts, edges]
@@ -32,9 +32,9 @@ def genGeoCompGraph(n):
     for _ in range(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
-    for i in range(1, n+1):
+    for i in range(n):
         verts.append(i)
-        for j in range(1, n+1):
+        for j in range(n):
             if i != j:
                 edges.append(((i,j),math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2))))
     graph = [verts, edges]
@@ -50,9 +50,9 @@ def genGeoCubeGraph(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
         z_values.append(np.random.rand())
-    for i in range(1, n+1):
+    for i in range(n):
         verts.append(i)
-        for j in range(1, n+1):
+        for j in range(n):
             if i != j:
                 edges.append(((i,j),math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2)+(math.abs(z_values[i-1]-y_values[j-1]) ** 2))))
     graph = [verts, edges]
@@ -68,9 +68,9 @@ def genGeoHyperCube(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
         z_values.append(np.random.rand())
-    for i in range(1, n+1):
+    for i in range(n):
         verts.append(i)
-        for j in range(1, n+1):
+        for j in range(n):
             if i != j and math.log2(math.abs(i-j)).is_integer():
                 edges.append(((i,j), math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2)+(math.abs(z_values[i-1]-y_values[j-1]) ** 2))))
     graph = [verts, edges]

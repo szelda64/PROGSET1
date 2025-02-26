@@ -9,11 +9,11 @@ class Heap:
     def __init__(self):
         self.array = []
 
-    def parent(v):
+    def parent(self, v):
         return (v-1) // 2
-    def leftchild(v):
+    def leftchild(self, v):
         return 2 * v + 1
-    def rightchild(v):
+    def rightchild(self, v):
         return 2 * v + 2
 
     def insert(self, v):
@@ -25,23 +25,32 @@ class Heap:
 
     def minHeapify(self, n):
         l,r = self.leftchild(n), self.rightchild(n)
+        print(l)
+        print(r)
         
-        if l and self.array[l] < self.array[n]:
-            smallest = l
+        if len(self.array)-1 >= l: 
+            if self.array[l] < self.array[n]:
+                smallest = l
         else:
             smallest = n
 
-        if r and self.array[r] < self.array[smallest]:
-            smallest = r
+        if len(self.array)-1 >= r:
+            if self.array[r] < self.array[smallest]:
+                smallest = r
 
         if smallest != n: 
             self.array[n], self.array[smallest] = self.array[smallest], self.array[n]
             self.minHeapify(smallest)
 
+    def buildHeap(self):
+        for i in range(len(self.array)/2, 1, -1):
+            self.minHeapify(self, i)
+    
     def extractMin(self):
         min = self.array[0]
         self.array[0] = self.array[-1]
         self.minHeapify(self.array[0])
+        return min
 
         
 
@@ -94,8 +103,8 @@ def prims_algo(graph, source):
     #graph = [[list of vertices], [list of ((start, end), weight)]]
     verts = graph[0]
     print(verts, "with length", len(verts))
-    edges = graph[1]
-    print('Edges:',edges)
+    edges = graph[1] 
+    print('Edges:', edges, "\n")
 
     #initialize all distances to inf, aside from source
     dist = [math.inf]*len(verts)
@@ -108,13 +117,20 @@ def prims_algo(graph, source):
     heap_graph.insert(source)
 
     while heap_graph:
-        u = heap_graph.deleteMin
-        mst = mst.append(u)
+        u = heap_graph.extractMin()
+        print('min:', u)
+        mst.append(u)
 
         #e = ((start, end), weight)
         #e[0] = (start, end)
         #for (u,v) in Edges
-        for e in (e for e in edges if e[0][0] == u):
+        adjEdges = []
+        for e in edges:
+            if e[0][0] == u:
+                adjEdges.append(e)
+        print(adjEdges)
+
+        for e in adjEdges:
             if e[0][1] not in mst:
                 #if dist[v] > weight
                 if dist[v] > e[1]:
