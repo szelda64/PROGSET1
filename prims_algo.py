@@ -38,8 +38,10 @@ class Heap:
             self.array[n], self.array[smallest] = self.array[smallest], self.array[n]
             self.minHeapify(smallest)
 
-
-
+    def extractMin(self):
+        min = self.array[0]
+        self.array[0] = self.array[-1]
+        self.minHeapify(self.array[0])
 
         
 
