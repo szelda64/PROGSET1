@@ -25,19 +25,19 @@ class Heap:
 
     def minHeapify(self, n):
         l,r = self.leftchild(n), self.rightchild(n)
-        print(l)
-        print(r)
+        print(n,"has children", l, "and", r)
+        print('Current heap:', self.array)
         
-        if len(self.array)-1 >= l: 
+        if l < len(self.array): 
             if self.array[l] < self.array[n]:
                 smallest = l
         else:
             smallest = n
 
-        if len(self.array)-1 >= r:
+        if r < len(self.array):
             if self.array[r] < self.array[smallest]:
                 smallest = r
-
+        print('Smallest:', smallest, "\n")
         if smallest != n: 
             self.array[n], self.array[smallest] = self.array[smallest], self.array[n]
             self.minHeapify(smallest)
@@ -119,7 +119,9 @@ def prims_algo(graph, source):
     while heap_graph:
         u = heap_graph.extractMin()
         print('min:', u)
+        print(heap_graph.array)
         mst.append(u)
+        print('mst:', mst)
 
         #e = ((start, end), weight)
         #e[0] = (start, end)
@@ -133,10 +135,10 @@ def prims_algo(graph, source):
         for e in adjEdges:
             if e[0][1] not in mst:
                 #if dist[v] > weight
-                if dist[v] > e[1]:
-                    dist[v] = e[1]
-                    prev[v] = u
-                    heap_graph.insert(v, dist[v])
+                if dist[e[0][1]] > e[1]:
+                    dist[e[0][1]] = e[1]
+                    prev[e[0][1]] = u
+                    heap_graph.insert(e[0][1])
 
     return (dist, prev)
 
