@@ -3,10 +3,10 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from genGraphs.py import genCompGraph, genHyperCube, genGeoCompGraph, genGeoCubeGraph, genGeoHyperCube
+from genGraphs import genCompGraph, genHyperCube, genGeoCompGraph, genGeoCubeGraph, genGeoHyperCube
 
 class Heap:
-    def _init_(self):
+    def __init__(self):
         self.array = []
 
     def parent(v):
@@ -90,20 +90,19 @@ def heapify(arr):
 def prims_algo(graph, source):
     #graph = [[list of vertices], [list of ((start, end), weight)]]
     verts = graph[0]
+    print(verts, "with length", len(verts))
     edges = graph[1]
+    print('Edges:',edges)
 
     #initialize all distances to inf, aside from source
-    dist = []
-    prev = []
-    for v in verts:
-        dist[v] = math.inf
-        prev[v] = None
+    dist = [math.inf]*len(verts)
+    prev = [None]*len(verts)
     dist[source] = 0
     
     mst = []
     heap_graph = Heap()
 
-    heap_graph.insert(source, 0)
+    heap_graph.insert(source)
 
     while heap_graph:
         u = heap_graph.deleteMin

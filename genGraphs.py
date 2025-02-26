@@ -4,7 +4,7 @@ def genCompGraph(n):
     verts = []
     edges = []
 
-    for i in range(1,n+1):
+    for i in range(n):
         verts.append(i)
         for j in range(1, n+1):
             if i != j:
@@ -16,7 +16,7 @@ def genHyperCube(n):
     verts = []
     edges = []
 
-    for i in range(1, n+1):
+    for i in range(n):
         verts.append(i)
         for j in range(1, n+1):
             if i != j and math.log2(math.abs(i-j)).is_integer():
@@ -29,7 +29,7 @@ def genGeoCompGraph(n):
     edges = []
     x_values = []
     y_values = []
-    for _ in range(1, n+1):
+    for _ in range(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
     for i in range(1, n+1):
@@ -46,7 +46,7 @@ def genGeoCubeGraph(n):
     x_values = []
     y_values = []
     z_values = []
-    for _ in range(1, n+1):
+    for _ in range(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
         z_values.append(np.random.rand())
@@ -64,7 +64,7 @@ def genGeoHyperCube(n):
     x_values = []
     y_values = []
     z_values = []
-    for _ in range(1, n+1):
+    for _ in range(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
         z_values.append(np.random.rand())
