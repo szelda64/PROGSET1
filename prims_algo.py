@@ -49,7 +49,9 @@ class Heap:
     def extractMin(self):
         min = self.array[0]
         self.array[0] = self.array[-1]
-        self.minHeapify(self.array[0])
+        self.array.pop()
+        if len(self.array) != 0:
+            self.minHeapify(self.array[0])
         return min
 
         
@@ -104,7 +106,7 @@ def prims_algo(graph, source):
     verts = graph[0]
     print(verts, "with length", len(verts))
     edges = graph[1] 
-    print('Edges:', edges, "\n")
+    #print('Edges:', edges, "\n")
 
     #initialize all distances to inf, aside from source
     dist = [math.inf]*len(verts)
@@ -127,18 +129,24 @@ def prims_algo(graph, source):
         #e[0] = (start, end)
         #for (u,v) in Edges
         adjEdges = []
+        unvisitedAdjE = []
         for e in edges:
             if e[0][0] == u:
                 adjEdges.append(e)
-        print(adjEdges)
+        print('Adjacent:', adjEdges)
 
         for e in adjEdges:
             if e[0][1] not in mst:
-                #if dist[v] > weight
-                if dist[e[0][1]] > e[1]:
-                    dist[e[0][1]] = e[1]
-                    prev[e[0][1]] = u
-                    heap_graph.insert(e[0][1])
+                unvisitedAdjE.append(e)
+        print('Unvisited:', unvisitedAdjE)
+
+        for e in unvisitedAdjE:
+            #if dist[v] > weight
+            print("Current edge:", e)
+            if dist[e[0][1]] > e[1]:
+                dist[e[0][1]] = e[1]
+                prev[e[0][1]] = u
+                heap_graph.insert([e[0][1], e[1]])
 
     return (dist, prev)
 
