@@ -18,12 +18,18 @@ class Heap:
 
     def insert(self, v):
         self.array.append(v)
+        print(self.array)
         n = len(self.array) - 1
-        while (n > 0) and self.array[self.parent(n)] > self.array[n]:
+        print(n)
+        while (n > 0) and self.array[self.parent(n)][1] > self.array[n][1]:
+            print('self.array[self.parent(n)][1]:',self.array[self.parent(n)][1])
+            print('self.array[n][1]:',self.array[n][1])
             self.array[self.parent(n)], self.array[n] = self.array[n], self.array[self.parent(n)]
             n = self.parent(n)
+        print(self.array,'\n')
 
-    def minHeapify(self, n):
+    def minHeapify(self, v):
+        n = self.array.index(v)
         l,r = self.leftchild(n), self.rightchild(n)
         print(n,"has children", l, "and", r)
         print('Current heap:', self.array)
@@ -54,51 +60,7 @@ class Heap:
             self.minHeapify(self.array[0])
         return min
 
-        
 
-# def parent(v):
-#     return v // 2
-# def leftchild(v):
-#     return 2 * v + 1
-# def rightchild(v):
-#     return 2 * v + 2
-
-def pushup(arr,s):
-    result = arr
-    end = len(result)
-    start = s
-    next = result[s]
-    minchild = 2 * s + 1
-    while minchild < end:
-        rightchild = minchild + 1
-        if rightchild < end and result[minchild] > result[rightchild]:
-            minchild = rightchild
-        result[s] = result[minchild]
-        s = minchild
-        minchild = 2 * s + 1
-    result[s] = next
-    pushdown(result,start,s)
-
-def pushdown(arr,start,s):
-    result = arr
-    next = result[s]
-    while s > start:
-        max_pos = math.floor((s-1)/2)
-        max_parent = result[max_pos]
-        if next < max_parent:
-            result[s] = max_parent
-            s = max_pos
-        else:
-            break
-    result[s] = next
-    return result
-
-def heapify(arr):
-    result = arr
-    stop = len(arr)
-    for i in range((n // 2) - 1, 0,-1):
-        result = pushup(result,i)
-    return result
     
 
 def prims_algo(graph, source):
@@ -106,7 +68,6 @@ def prims_algo(graph, source):
     verts = graph[0]
     print(verts, "with length", len(verts))
     edges = graph[1] 
-    #print('Edges:', edges, "\n")
 
     #initialize all distances to inf, aside from source
     dist = [math.inf]*len(verts)
@@ -130,21 +91,20 @@ def prims_algo(graph, source):
         unvisitedAdjE = []
         for e in edges:
             #for (u,v) in Edges
-            if e[0][0] == u:
-                print(e[0])
+            if e[0][0] == u[0]:
                 #for v not in mst
                 mstv = [item[0] for item in mst]
                 if e[0][1] not in mstv:
                     unvisitedAdjE.append(e)
-        print('Unvisited:', unvisitedAdjE)
+        #print('Unvisited:', unvisitedAdjE)
 
         for e in unvisitedAdjE:
             #if dist[v] > weight
-            print("Current edge:", e)
             if dist[e[0][1]] > e[1]:
                 dist[e[0][1]] = e[1]
                 prev[e[0][1]] = u
-                heap_graph.insert(e[0][1])
+                print([e[0][1], e[1]])
+                heap_graph.insert([e[0][1], e[1]])
 
     return (dist, prev)
 
