@@ -17,24 +17,28 @@ class Heap:
         return 2 * v + 2
 
     def insert(self, v):
+        #print("\nCurrently running insert on heap for element: " + str(v))
         self.array.append(v)
-        print(self.array)
+        #print("Current heap: " + str(self.array))
         n = len(self.array) - 1
-        print(n)
+        #print("Index of last element: " + str(n))
         while (n > 0) and self.array[self.parent(n)][1] > self.array[n][1]:
-            print('self.array[self.parent(n)][1]:',self.array[self.parent(n)][1])
-            print('self.array[n][1]:',self.array[n][1])
+            #print('self.array[self.parent(n)][1]:',self.array[self.parent(n)][1])
+            #print('self.array[n][1]:',self.array[n][1])
             self.array[self.parent(n)], self.array[n] = self.array[n], self.array[self.parent(n)]
             n = self.parent(n)
-        print(self.array,'\n')
+        #print("Current heap: " + str(self.array),'\n')
  
     #the problem is here
     def minHeapify(self, v):
+        #print("\nCurrently running minHeapify on heap for element: " + str(v))
+        #print("Current array",self.array)
         n = self.array.index(v)
+        #print("Position of element in array: " + str(n))
+        smallest = n
         l,r = self.leftchild(n), self.rightchild(n)
-        print(n,"has children", l, "and", r)
-        print('Current heap:', self.array)
-        
+        #print(n,"has children", l, "and", r)
+        #print('Current heap:', self.array)
         if l < len(self.array): 
             if self.array[l] < self.array[n]:
                 smallest = l
@@ -44,19 +48,23 @@ class Heap:
         if r < len(self.array):
             if self.array[r] < self.array[smallest]:
                 smallest = r
-        print('Smallest:', smallest, "\n")
+        #print('Smallest:', smallest, "\n")
         if smallest != n: 
             self.array[n], self.array[smallest] = self.array[smallest], self.array[n]
-            self.minHeapify(smallest)
+            self.minHeapify(self.array[smallest])
 
     def buildHeap(self):
         for i in range(len(self.array)/2, 1, -1):
             self.minHeapify(self, i)
     
     def extractMin(self):
+        #print("\nCurrently running extractMin on heap")
+        #print("Array before: " + str(self.array))
         min = self.array[0]
         self.array[0] = self.array[-1]
         self.array.pop()
+        #print("Array after popping: " + str(self.array))
+        #print("Length of array after popping: " + str(len(self.array)))
         if len(self.array) != 0:
             self.minHeapify(self.array[0])
         return min
@@ -67,8 +75,9 @@ class Heap:
 def prims_algo(graph, source):
     #graph = [[list of vertices], [list of ((start, end), weight)]]
     verts = graph[0]
-    print(verts, "with length", len(verts))
-    edges = graph[1] 
+    #print("Vertices: " + str(verts), "with length", len(verts))
+    edges = graph[1]
+    #print("Edges: " + str(edges), "with length", len(edges)) 
 
     #initialize all distances to inf, aside from source
     dist = [math.inf]*len(verts)
@@ -80,12 +89,13 @@ def prims_algo(graph, source):
 
     heap_graph.insert([source, 0])
 
-    while heap_graph:
+    while heap_graph.array:
+        #print("Current heap: " + str(heap_graph.array))
         u = heap_graph.extractMin()
-        print('min:', u)
-        print(heap_graph.array)
+        #print('min:', u)
+        #print('current array', heap_graph.array)
         mst.append(u)
-        print('mst:', mst)
+        #print('mst:', mst)
 
         #e = ((start, end), weight)
         #e[0] = (start, end)
@@ -104,7 +114,7 @@ def prims_algo(graph, source):
             if dist[e[0][1]] > e[1]:
                 dist[e[0][1]] = e[1]
                 prev[e[0][1]] = u
-                print([e[0][1], e[1]])
+                #print([e[0][1], e[1]])
                 heap_graph.insert([e[0][1], e[1]])
 
     return (dist, prev)
@@ -137,50 +147,32 @@ def prims_algo(graph, source):
     # return heap_graph
 
 def count_weight(graph):
+    #print("\nRunning count weight on graph...")
+    #print("mst: " + str(graph))
     sum = 0
-    for key in graph.keys:
-        sum += graph[key]
+    for i in graph[1]:
+        #print("Current i in mst: " + str(i))
+        if(i):
+            sum += i[1]
     return sum
 
-def randomSample():
-    sizes = list(range(10,210,10))
-    MST_weights0 = []
-    MST_weights1 = []
-    MST_weights2 = []
-    MST_weights3 = []
-    MST_weights4 = []
-
-    for n in sizes:
-        curr_weight0 = 0
-        curr_weight1 = 0
-        curr_weight2 = 0
-        curr_weight3 = 0
-        curr_weight4 = 0
-        for _ in range(75):
-            graph0 = genCompGraph(n)
-            curr_weight0 += count_weight(prims_algo(graph0, 0))
-            graph1 = genHyperCube(n)
-            curr_weight1 += count_weight(prims_algo(graph1, 0))
-            graph2 = genGeoCompGraph(n)
-            curr_weight2 += count_weight(prims_algo(graph2, 0))
-            graph3 = genGeoCubeGraph(n)
-            curr_weight3 += count_weight(prims_algo(graph3, 0))
-            graph4 = genGeoHyperCube(n)
-            curr_weight4 += count_weight(prims_algo(graph4, 0))
-        MST_weights0.append(curr_weight0 / 75)
-        MST_weights1.append(curr_weight1 / 75)
-        MST_weights2.append(curr_weight2 / 75)
-        MST_weights3.append(curr_weight3 / 75)
-        MST_weights4.append(curr_weight4 / 75)
-    plt.figure(figsize=(10,6))
-    plt.plot(sizes,MST_weights0,label="Type 0 Graphs",marker='o')
-    plt.plot(sizes,MST_weights1,label="Type 1 Graphs", marker='g')
-    plt.plot(sizes,MST_weights2,label="Type 2 Graphs", marker='b')
-    plt.plot(sizes,MST_weights3,label="Type 3 Graphs", marker='c')
-    plt.plot(sizes,MST_weights4,label="Type 4 Graphs", marker='k')
-    plt.xlabel("Number of Vertices (n)")
-    plt.ylabel("Average Weight")
-    plt.title("Expected Weight of Type 0-4 Graphs Based on Size")
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+def randomSample(numpoints, numtrials, dimension):
+    for _ in range(numtrials):
+        curr_weight = 0
+        if(dimension == 0):
+            graph = genCompGraph(numpoints)
+            curr_weight += count_weight(prims_algo(graph,0))
+        if(dimension == 1):
+            graph = genHyperCube(numpoints)
+            curr_weight += count_weight(prims_algo(graph, 0))
+        if(dimension == 2):
+            graph = genGeoCompGraph(numpoints)
+            curr_weight += count_weight(prims_algo(graph, 0))
+        if(dimension == 3):
+            graph = genGeoCubeGraph(numpoints)
+            curr_weight += count_weight(prims_algo(graph, 0))
+        if(dimension == 4):
+            graph = genGeoHyperCube(numpoints)
+            curr_weight += count_weight(prims_algo(graph, 0))
+    average = curr_weight / numtrials
+    print(average, numpoints, numtrials, dimension)

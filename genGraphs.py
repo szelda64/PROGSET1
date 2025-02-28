@@ -19,7 +19,7 @@ def genHyperCube(n):
     for i in range(n):
         verts.append(i)
         for j in range(n):
-            if i != j and math.log2(math.abs(i-j)).is_integer():
+            if i != j and math.log2(abs(i-j)).is_integer():
                 edges.append(((i,j),np.random.rand()))
     graph = [verts, edges]
     return graph
@@ -36,7 +36,7 @@ def genGeoCompGraph(n):
         verts.append(i)
         for j in range(n):
             if i != j:
-                edges.append(((i,j),math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2))))
+                edges.append(((i,j),math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))))
     graph = [verts, edges]
     return graph
 
@@ -54,7 +54,7 @@ def genGeoCubeGraph(n):
         verts.append(i)
         for j in range(n):
             if i != j:
-                edges.append(((i,j),math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2)+(math.abs(z_values[i-1]-y_values[j-1]) ** 2))))
+                edges.append(((i,j),math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))))
     graph = [verts, edges]
     return graph
 
@@ -71,8 +71,8 @@ def genGeoHyperCube(n):
     for i in range(n):
         verts.append(i)
         for j in range(n):
-            if i != j and math.log2(math.abs(i-j)).is_integer():
-                edges.append(((i,j), math.sqrt((math.abs(x_values[i-1]-x_values[j-1]) ** 2) + (math.abs(y_values[i-1] - y_values[j-1]) ** 2)+(math.abs(z_values[i-1]-y_values[j-1]) ** 2))))
+            if i != j and math.log2(abs(i-j)).is_integer():
+                edges.append(((i,j), math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))))
     graph = [verts, edges]
     return graph
 
