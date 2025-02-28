@@ -27,7 +27,8 @@ class Heap:
             self.array[self.parent(n)], self.array[n] = self.array[n], self.array[self.parent(n)]
             n = self.parent(n)
         print(self.array,'\n')
-
+ 
+    #the problem is here
     def minHeapify(self, v):
         n = self.array.index(v)
         l,r = self.leftchild(n), self.rightchild(n)
