@@ -1,5 +1,6 @@
 import numpy as np
 import math
+  
 def genCompGraph(n):
     verts = []
     edges = []
