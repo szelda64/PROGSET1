@@ -82,74 +82,33 @@ def prims_algo(graph, source):
     dist = [math.inf]*verts
     dist[source] = 0
     prev = [-1]*verts
-    print(dist)
-    print(prev)
+    print("Initial distances:",dist)
+    print("Initial previous vertices:",prev)
     
     mst = []
     heap_graph = Heap()
 
     heap_graph.insert([source, 0])
 
-    print(heap_graph.array)
+    print("Initial heap:",heap_graph.array)
 
     while heap_graph.array:
         #u = [vertex label, vertex value]
         u = heap_graph.extractMin()
-        print('Min:', u)
 
         if u[0] not in mst:
-
             mst.append(u[0])
             
             for i in range(verts):
-                print("We check if", i, "is key in", edges[u[0]])
-                if i in edges[u[0]]:
-                    print("Tis")
-                    print(i, "has weight", graph.edges[u[0]][i])
+                if i in graph.edges[u[0]]:
                     if i not in mst and graph.edges[u[0]][i] < dist[i]:
                         dist[i] = graph.edges[u[0]][i]
                         prev[i] = u[0]
                         heap_graph.insert([i, dist[i]])
-            print(heap_graph.array,'\n')
 
     return mst
 
 
-
-
-    # while heap_graph.array:
-    #     #print("Current heap: " + str(heap_graph.array))
-    #     u = heap_graph.extractMin()
-    #     #print('min:', u)
-    #     #print('current array', heap_graph.array)
-    #     mst.append(u)
-    #     #print('mst:', mst)
-
-        
-
-
-
-        # #e = ((start, end), weight)
-        # #e[0] = (start, end)
-        # unvisitedAdjE = []
-        # for e in edges:
-        #     #for (u,v) in Edges
-        #     if e[0][0] == u[0]:
-        #         #for v not in mst
-        #         mstv = [item[0] for item in mst]
-        #         if e[0][1] not in mstv:
-        #             unvisitedAdjE.append(e)
-        # #print('Unvisited:', unvisitedAdjE)
-
-    #     for e in unvisitedAdjE:
-    #         #if dist[v] > weight
-    #         if dist[e[0][1]] > e[1]:
-    #             dist[e[0][1]] = e[1]
-    #             prev[e[0][1]] = u
-    #             #print([e[0][1], e[1]])
-    #             heap_graph.insert([e[0][1], e[1]])
-
-    # return (dist, prev)
 
     
 

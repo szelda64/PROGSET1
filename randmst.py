@@ -1,4 +1,5 @@
 import sys
+import time
 from rehualPrim import randomSample
 if(len(sys.argv) != 5):
     print("Incorrect number of command lines. randmst terminal usage is: \n")
@@ -28,4 +29,7 @@ try:
 except ValueError:
     print("dimension must be an integer.")
     sys.exit()
+start = time.time()
 randomSample(nump,numt,dim)
+stop = time.time() - start
+print("Runtime:",stop,"seconds")

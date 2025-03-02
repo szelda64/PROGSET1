@@ -14,10 +14,9 @@ class Graph:
         self.edges.append(dict())
 
     def add_edge(self, u, v, w):
-        assert(v not in self.edges[u])
-        assert(u not in self.edges[v])
-        self.edges[u][v] = w
-        self.edges[v][u] = w
+        if v not in self.edges[u] and u not in self.edges[v]:
+            self.edges[u][v] = w
+            self.edges[v][u] = w
         return self
   
 def genCompGraph(n):
@@ -33,19 +32,17 @@ def genHyperCube(n):
     for i in range(n):
         for j in range(n):
             if i != j and math.log2(abs(i-j)).is_integer():
+                print("Condition fulfilled")
+                print("i, j:",i,j)
                 g.add_edge(i, j, np.random.rand())
     return g
 
 def genGeoCompGraph(n):
-    x_values = []
-    y_values = []
-    for _ in range(n):
-        x_values.append(np.random.rand())
-        y_values.append(np.random.rand())
-
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
     g = Graph(n)
     for i in range(n):
-        for  j in range(n):
+        for j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))
                 g.add_edge(i, j, weight)
