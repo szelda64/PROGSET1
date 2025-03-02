@@ -14,6 +14,8 @@ class AMGraph:
         return self
 
 def cutoff(n,weight,dim):
+    if(n < 128):
+        return True
     if(dim == 0):
         return not(weight > 1/(n/3))
     if(dim == 1):

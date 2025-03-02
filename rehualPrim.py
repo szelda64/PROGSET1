@@ -3,7 +3,7 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from genGraphRehaul import AMGraph, AMgenCompGraph, AMgenHyperCube, AMgenGeoCompGraph, AMgenGeoCubeGraph, AMgenGeoHyperCube, ELGraph, ELgenCompGraph, ELgenHyperCube, ELgenGeoCompGraph, ELgenGeoCubeGraph, ELgenGeoHyperCube
+from genGraphRehaul import AMGraph, AMgenCompGraph, AMgenHyperCube, AMgenGeoCompGraph, AMgenGeoCubeGraph, AMgenGeoHyperCube, ELgenCompGraph, ELgenHyperCube, ELgenGeoCompGraph, ELgenGeoCubeGraph, ELgenGeoHyperCube
 
 class Heap:
     def __init__(self):
@@ -70,14 +70,17 @@ class Heap:
         return min
   
 class UnionFind:
-    def __init__(self, n, x):
+    def __init__(self, n):
         self.parentNode = list(range(n))
-        self.parentNode[x] = x
         self.rank = [0]*n
+
+    def makeSet(self, x):
+        self.parentNode[x] = x
     
     def find(self, x):
         if self.parentNode[x] != x:
             self.parentNode[x] = self.find(self.parentNode[x])
+        print('Found', self.parentNode[x])
         return self.parentNode[x]
 
     def link(self, x,y):
@@ -89,6 +92,8 @@ class UnionFind:
         return y
     
     def union(self, x,y):
+        print("We're unionizing")
+        print(x,y)
         self.link(self.find(x), self.find(y))
         
 def prims_algo(graph, source):
@@ -135,7 +140,28 @@ def prims_algo(graph, source):
 
     return mst
 
+def kruskals(graph):
+    verts = graph[0]
+    edges = graph[1]
+    sortedEdges = sorted(edges, key=lambda edge: edge[1])
+    print(sortedEdges)
 
+    mst = []
+    unionfind_graph = UnionFind(len(verts))
+
+    for i in range(len(verts)):
+        unionfind_graph.makeSet(i)
+    
+    #e = [[u, v], weight]
+    for e in sortedEdges:
+        print(e[0])
+        print("We're finding", e[0][0], ":", unionfind_graph.find(e[0][0]))
+        print("We're finding", e[0][1], ":", unionfind_graph.find(e[0][1]))
+        if unionfind_graph.find(e[0][0]) != unionfind_graph.find(e[0][1]):
+            mst.append(e)
+            unionfind_graph.union(e[0][0], e[0][1])
+
+    return mst
     
 
 def count_weight(graph):
