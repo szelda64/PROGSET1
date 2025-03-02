@@ -1,7 +1,7 @@
 import numpy as np
 import math
 
-class Graph:
+class AMGraph:
 
     def __init__(self, n, edges = None):
         self.verts = n
@@ -32,8 +32,8 @@ def cutoff(n,weight,dim):
         return not(weight > 1/((n ** (3/4))/5))
 
   
-def genCompGraph(n):
-    g = Graph(n)
+def AMgenCompGraph(n):
+    g = AMGraph(n)
     for i in range(n):
         for j in range(n):
             if i < j:
@@ -42,8 +42,8 @@ def genCompGraph(n):
                     g.add_edge(i, j, weight)
     return g
 
-def genHyperCube(n):
-    g = Graph(n)
+def AMgenHyperCube(n):
+    g = AMGraph(n)
     for i in range(n):
         for j in range(n):
             if i != j and math.log2(abs(i-j)).is_integer():
@@ -54,10 +54,10 @@ def genHyperCube(n):
                     g.add_edge(i, j, weight)
     return g
 
-def genGeoCompGraph(n):
+def AMgenGeoCompGraph(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
-    g = Graph(n)
+    g = AMGraph(n)
     for i in range(n):
         for j in range(n):
             if i != j:
@@ -67,12 +67,12 @@ def genGeoCompGraph(n):
 
     return g
 
-def genGeoCubeGraph(n):
+def AMgenGeoCubeAMGraph(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
     z_values = np.random.uniform(low=0,high=1,size=n)
 
-    g = Graph(n)
+    g = AMGraph(n)
     for i in range(n):
         for  j in range(n):
             if i != j:
@@ -82,7 +82,7 @@ def genGeoCubeGraph(n):
 
     return g    
 
-def genGeoHyperCube(n):
+def AMgenGeoHyperCube(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
     z_values = np.random.uniform(low=0,high=1,size=n)
@@ -93,7 +93,7 @@ def genGeoHyperCube(n):
         z_values.append(np.random.rand())
         a_values.append(np.random.rand())
 
-    g = Graph(n)
+    g = AMGraph(n)
     for i in range(n):
         for  j in range(n):
             if i != j:
