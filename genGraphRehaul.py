@@ -21,15 +21,15 @@ class Graph:
 
 def cutoff(n,weight,dim):
     if(dim == 0):
-        return not(weight > 1/(n-1))
+        return not(weight > 1/(n/3))
     if(dim == 1):
-        return not(weight > 1/(math.log2(n)-1))
+        return not(weight > 1/(math.log2(n)/5))
     if(dim == 2):
-        return not(weight > 1/(n ** (1/2) - 1))
+        return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
-        return not(weight > 1/(n ** (2/3) - 1))
+        return not(weight > 1/((n ** (2/3))/5))
     if(dim == 4):
-        return not(weight > 1/(n ** (3/4) - 1))
+        return not(weight > 1/((n ** (3/4))/5))
 
   
 def genCompGraph(n):

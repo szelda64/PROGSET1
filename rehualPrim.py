@@ -68,7 +68,7 @@ class Heap:
         if len(self.array) != 0:
             self.minHeapify(self.array[0])
         return min
-
+  
 class UnionFind:
     def __init__(self, n, x):
         self.parentNode = list(range(n))
@@ -90,8 +90,7 @@ class UnionFind:
     
     def union(self, x,y):
         self.link(self.find(x), self.find(y))
-
-
+        
 def prims_algo(graph, source):
     verts = graph.verts
     #print("Vertices:", verts)
@@ -150,23 +149,21 @@ def count_weight(graph):
     return sum
 
 def randomSample(numpoints, numtrials, dimension):
+    curr_weight = 0
     for _ in range(numtrials):
-        curr_weight = 0
         if(dimension == 0):
             graph = genCompGraph(numpoints)
-            curr_weight += count_weight(prims_algo(graph,0))
         if(dimension == 1):
             graph = genHyperCube(numpoints)
-            curr_weight += count_weight(prims_algo(graph, 0))
         if(dimension == 2):
             graph = genGeoCompGraph(numpoints)
-            curr_weight += count_weight(prims_algo(graph, 0))
         if(dimension == 3):
             graph = genGeoCubeGraph(numpoints)
-            curr_weight += count_weight(prims_algo(graph, 0))
         if(dimension == 4):
             graph = genGeoHyperCube(numpoints)
-            curr_weight += count_weight(prims_algo(graph, 0))
+        #print("New weight:",count_weight(prims_algo(graph,0)))
+        curr_weight += count_weight(prims_algo(graph,0))
+        #print("Summed weight:",curr_weight)
     average = curr_weight / numtrials
     print(average, numpoints, numtrials, dimension)
     return average
