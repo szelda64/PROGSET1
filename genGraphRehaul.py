@@ -63,7 +63,7 @@ def AMgenGeoCompGraph(n):
 
     return g
 
-def AMgenGeoCubeAMGraph(n):
+def AMgenGeoCubeGraph(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
     z_values = np.random.uniform(low=0,high=1,size=n)
