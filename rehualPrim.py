@@ -137,13 +137,6 @@ def prims_algo(graph, source):
     return mst
 
 
-
-
-
-
-
-
-
     
 
 def count_weight(graph):
