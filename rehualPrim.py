@@ -85,8 +85,8 @@ class UnionFind:
 
     def link(self, x,y):
         if self.rank[x] > self.rank[y]:
-            print("WITHIN LINK")
-            print("We're inputting", x, "and", y)
+            #print("WITHIN LINK")
+            #print("We're inputting", x, "and", y)
             return self.link(y, x)
         elif self.rank[x] == self.rank[y]:
             self.rank[y] += 1
@@ -94,12 +94,12 @@ class UnionFind:
         return y
     
     def union(self, x,y):
-        print("We're unionizing")
-        print(x,y)
+        #print("We're unionizing")
+        #print(x,y)
         findx = self.find(x)
         findy = self.find(y)
-        print("WITHIN UNION")
-        print("We're inputting", findx, "and", findy)
+        #print("WITHIN UNION")
+        #print("We're inputting", findx, "and", findy)
         self.link(self.find(x), self.find(y))
         
 def prims_algo(graph, source):
@@ -150,7 +150,7 @@ def kruskals(graph):
     verts = graph[0]
     edges = graph[1]
     sortedEdges = sorted(edges, key=lambda edge: edge[1])
-    print(sortedEdges)
+    #print(sortedEdges)
 
     mst = []
     unionfind_graph = UnionFind(len(verts))
@@ -160,9 +160,9 @@ def kruskals(graph):
     
     #e = [[u, v], weight]
     for e in sortedEdges:
-        print(e[0])
-        print("We're finding", e[0][0], ":", unionfind_graph.find(e[0][0]))
-        print("We're finding", e[0][1], ":", unionfind_graph.find(e[0][1]))
+        #print(e[0])
+        #print("We're finding", e[0][0], ":", unionfind_graph.find(e[0][0]))
+        #print("We're finding", e[0][1], ":", unionfind_graph.find(e[0][1]))
         if unionfind_graph.find(e[0][0]) != unionfind_graph.find(e[0][1]):
             mst.append(e)
             unionfind_graph.union(e[0][0], e[0][1])
@@ -180,32 +180,53 @@ def count_weight(graph):
             sum += i[1]
     return sum
 
-def randomSample(numpoints, numtrials, dimension):
+def randomSample(numpoints, numtrials, dimension, type):
     curr_weight = 0
     for _ in range(numtrials):
         if(dimension == 0):
-            graph = AMgenCompGraph(numpoints)
+            if(type == 'prim'):
+                graph = AMgenCompGraph(numpoints)
+            elif(type == 'kruskal'):
+                graph = ELgenCompGraph(numpoints)
         if(dimension == 1):
-            graph = AMgenHyperCube(numpoints)
+            if(type == 'prim'):
+                graph = AMgenHyperCube(numpoints)
+            elif(type == 'kruskal'):
+                graph = ELgenHyperCube(numpoints)
         if(dimension == 2):
-            graph = AMgenGeoCompGraph(numpoints)
+            if(type == 'prim'):
+                graph = AMgenGeoCompGraph(numpoints)
+            elif(type == 'kruskal'):
+                graph = ELgenGeoCompGraph(numpoints)
         if(dimension == 3):
-            graph = AMgenGeoCubeGraph(numpoints)
+            if(type == 'prim'):
+                graph = AMgenGeoCubeGraph(numpoints)
+            elif(type == 'kruskal'):
+                graph = ELgenGeoCubeGraph(numpoints)
         if(dimension == 4):
-            graph = AMgenGeoHyperCube(numpoints)
+            if(type == 'prim'):
+                graph = AMgenGeoHyperCube(numpoints)
+            elif(type == 'kruskal'):
+                graph = ELgenGeoHyperCube(numpoints)
         #print("New weight:",count_weight(prims_algo(graph,0)))
-        curr_weight += count_weight(prims_algo(graph,0))
+        if(type == 'prim'):
+            curr_weight += count_weight(prims_algo(graph,0))
+        elif(type == 'kruskal'):
+            curr_weight += count_weight(kruskals(graph))
         #print("Summed weight:",curr_weight)
     average = curr_weight / numtrials
     print(average, numpoints, numtrials, dimension)
     return average
-def figureGen(numtrials, dimension):
+def figureGen(numtrials, dimension, type):
     sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
     MSTweights = []
     if(dimension == 1):
         sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
     for n in sizes:
-        MSTweights.append(randomSample(n,numtrials,dimension))
+        if(type=='kruskal'):
+            MSTweights.append(randomSample(n,numtrials,dimension,'kruskal'))
+        elif(type=='prim'):
+            MSTweights.append(randomSample(n,numtrials,dimension,'prim'))
     plt.figure(figsize=(10,6))
     plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
     plt.xlabel("Number of Vertices (n)")
