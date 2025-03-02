@@ -18,6 +18,19 @@ class Graph:
             self.edges[u][v] = w
             self.edges[v][u] = w
         return self
+
+def cutoff(n,weight,dim):
+    if(dim == 0):
+        return not(weight > 1/(n-1))
+    if(dim == 1):
+        return not(weight > 1/(math.log2(n)-1))
+    if(dim == 2):
+        return not(weight > 1/(n ** (1/2) - 1))
+    if(dim == 3):
+        return not(weight > 1/(n ** (2/3) - 1))
+    if(dim == 4):
+        return not(weight > 1/(n ** (3/4) - 1))
+
   
 def genCompGraph(n):
     g = Graph(n)
@@ -25,7 +38,8 @@ def genCompGraph(n):
         for j in range(n):
             if i < j:
                 weight = np.random.rand()
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,0)):
+                    g.add_edge(i, j, weight)
     return g
 
 def genHyperCube(n):
@@ -36,7 +50,8 @@ def genHyperCube(n):
                 #print("Condition fulfilled")
                 #print("i, j:",i,j)
                 weight = np.random.rand()
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,1)):
+                    g.add_edge(i, j, weight)
     return g
 
 def genGeoCompGraph(n):
@@ -47,7 +62,8 @@ def genGeoCompGraph(n):
         for j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,2)):
+                    g.add_edge(i, j, weight)
 
     return g
 
@@ -61,7 +77,8 @@ def genGeoCubeGraph(n):
         for  j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,3)):
+                    g.add_edge(i, j, weight)
 
     return g    
 
@@ -81,6 +98,7 @@ def genGeoHyperCube(n):
         for  j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-z_values[j-1]) ** 2)+(abs(a_values[i-1]-a_values[j-1]) ** 2))
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,4)):
+                    g.add_edge(i, j, weight)
 
     return g
