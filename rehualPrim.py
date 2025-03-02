@@ -68,9 +68,7 @@ class Heap:
         if len(self.array) != 0:
             self.minHeapify(self.array[0])
         return min
-
-
-    
+  
 
 def prims_algo(graph, source):
     verts = graph.verts
@@ -117,39 +115,10 @@ def prims_algo(graph, source):
 
 
 
-    # while heap_graph.array:
-    #     #print("Current heap: " + str(heap_graph.array))
-    #     u = heap_graph.extractMin()
-    #     #print('min:', u)
-    #     #print('current array', heap_graph.array)
-    #     mst.append(u)
-    #     #print('mst:', mst)
-
-        
 
 
 
-        # #e = ((start, end), weight)
-        # #e[0] = (start, end)
-        # unvisitedAdjE = []
-        # for e in edges:
-        #     #for (u,v) in Edges
-        #     if e[0][0] == u[0]:
-        #         #for v not in mst
-        #         mstv = [item[0] for item in mst]
-        #         if e[0][1] not in mstv:
-        #             unvisitedAdjE.append(e)
-        # #print('Unvisited:', unvisitedAdjE)
 
-    #     for e in unvisitedAdjE:
-    #         #if dist[v] > weight
-    #         if dist[e[0][1]] > e[1]:
-    #             dist[e[0][1]] = e[1]
-    #             prev[e[0][1]] = u
-    #             #print([e[0][1], e[1]])
-    #             heap_graph.insert([e[0][1], e[1]])
-
-    # return (dist, prev)
 
     
 

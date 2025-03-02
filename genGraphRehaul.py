@@ -14,10 +14,10 @@ class Graph:
         self.edges.append(dict())
 
     def add_edge(self, u, v, w):
-        assert(v not in self.edges[u])
-        assert(u not in self.edges[v])
-        self.edges[u][v] = w
-        self.edges[v][u] = w
+        if v not in self.edges[u]:
+            self.edges[u][v] = w
+        if u not in self.edges[v]:
+            self.edges[v][u] = w
         return self
   
 def genCompGraph(n):
