@@ -152,3 +152,35 @@ def randomSample(numpoints, numtrials, dimension):
             curr_weight += count_weight(prims_algo(graph, 0))
     average = curr_weight / numtrials
     print(average, numpoints, numtrials, dimension)
+def figureGen(numtrials, dimension):
+    sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
+    MSTweights = []
+    if(dimension == 1):
+        sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
+    for n in sizes:
+        curr_weight = 0
+        for _ in range(numtrials):
+            if(dimension == 0):
+                graph = genCompGraph(n)
+                curr_weight += count_weight(prims_algo(graph,0))
+            if(dimension == 1):
+                graph = genHyperCube(n)
+                curr_weight += count_weight(prims_algo(graph,0))
+            if(dimension == 2):
+                graph = genGeoCompGraph(n)
+                curr_weight += count_weight(prims_algo(graph,0))
+            if(dimension == 3):
+                graph = genGeoCubeGraph(n)
+                curr_weight += count_weight(prims_algo(graph,0))
+            if(dimension == 4):
+                graph = genGeoHyperCube(n)
+                curr_weight += count_weight(prims_algo(graph,0))
+        MSTweights.append(curr_weight / numtrials)
+    plt.figure(figsize=(10,6))
+    plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
+    plt.xlabel("Number of Vertices (n)")
+    plt.ylabel("Average Weight")
+    plt.title("Average Type",dimension,"Graph Weights Over Large Values of n")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
