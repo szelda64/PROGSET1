@@ -160,7 +160,7 @@ def figureGen(numtrials, dimension):
     if(dimension == 1):
         sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
     for n in sizes:
-        MSTweights.append(randomSample(n,numtrials,dimension))
+        MSTweights.append(randomSample(n,numtrials,dimension)[0])
     plt.figure(figsize=(10,6))
     plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
     plt.xlabel("Number of Vertices (n)")
