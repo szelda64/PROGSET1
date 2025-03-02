@@ -24,7 +24,8 @@ def genCompGraph(n):
     for i in range(n):
         for j in range(n):
             if i < j:
-                g.add_edge(i, j, np.random.rand())
+                weight = np.random.rand()
+                g.add_edge(i, j, weight)
     return g
 
 def genHyperCube(n):
@@ -34,7 +35,8 @@ def genHyperCube(n):
             if i != j and math.log2(abs(i-j)).is_integer():
                 print("Condition fulfilled")
                 print("i, j:",i,j)
-                g.add_edge(i, j, np.random.rand())
+                weight = np.random.rand()
+                g.add_edge(i, j, weight)
     return g
 
 def genGeoCompGraph(n):
