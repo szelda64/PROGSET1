@@ -9,10 +9,6 @@ class AMGraph:
         # self.edges = [set(lst) for lst in edges] if edges is not None else [set() for _ in range(N)]
         # self.colors = [c for c in colors] if colors is not None else [None for _ in range(N)]
 
-    def add_vert(self):
-        self.verts += 1
-        self.edges.append(dict())
-
     def add_edge(self, u, v, w):
         if v not in self.edges[u] and u not in self.edges[v]:
             self.edges[u][v] = w
@@ -102,3 +98,5 @@ def AMgenGeoHyperCube(n):
                     g.add_edge(i, j, weight)
 
     return g
+
+class ELGraph:
