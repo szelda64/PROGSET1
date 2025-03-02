@@ -20,10 +20,72 @@ class Graph:
         self.edges[v][u] = w
         return self
   
-def generate_complete_graph(n):
+def genCompGraph(n):
     g = Graph(n)
     for i in range(n):
         for j in range(n):
             if i < j:
                 g.add_edge(i, j, np.random.rand())
+    return g
+
+def genHyperCube(n):
+    g = Graph(n)
+    for i in range(n):
+        for j in range(n):
+            if i != j and math.log2(abs(i-j)).is_integer():
+                g.add_edge(i, j, np.random.rand())
+    return g
+
+def genGeoCompGraph(n):
+    x_values = []
+    y_values = []
+    for _ in range(n):
+        x_values.append(np.random.rand())
+        y_values.append(np.random.rand())
+
+    g = Graph(n)
+    for i in range(n):
+        for  j in range(n):
+            if i != j:
+                weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))
+                g.add_edge(i, j, weight)
+
+    return g
+
+def genGeoCubeGraph(n):
+    x_values = []
+    y_values = []
+    z_values = []
+    for _ in range(n):
+        x_values.append(np.random.rand())
+        y_values.append(np.random.rand())
+        z_values.append(np.random.rand())
+
+    g = Graph(n)
+    for i in range(n):
+        for  j in range(n):
+            if i != j:
+                weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))
+                g.add_edge(i, j, weight)
+
+    return g    
+
+def genGeoHyperCube(n):
+    x_values = []
+    y_values = []
+    z_values = []
+    a_values = []
+    for _ in range(n):
+        x_values.append(np.random.rand())
+        y_values.append(np.random.rand())
+        z_values.append(np.random.rand())
+        a_values.append(np.random.rand())
+
+    g = Graph(n)
+    for i in range(n):
+        for  j in range(n):
+            if i != j:
+                weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-z_values[j-1]) ** 2)+(abs(a_values[i-1]-a_values[j-1]) ** 2))
+                g.add_edge(i, j, weight)
+
     return g
