@@ -128,7 +128,7 @@ def count_weight(graph):
     #print("\nRunning count weight on graph...")
     #print("mst: " + str(graph))
     sum = 0
-    for i in graph[1]:
+    for i in graph:
         #print("Current i in mst: " + str(i))
         if(i):
             sum += i[1]
@@ -160,24 +160,7 @@ def figureGen(numtrials, dimension):
     if(dimension == 1):
         sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
     for n in sizes:
-        curr_weight = 0
-        for _ in range(numtrials):
-            if(dimension == 0):
-                graph = genCompGraph(n)
-                curr_weight += count_weight(prims_algo(graph,0))
-            if(dimension == 1):
-                graph = genHyperCube(n)
-                curr_weight += count_weight(prims_algo(graph,0))
-            if(dimension == 2):
-                graph = genGeoCompGraph(n)
-                curr_weight += count_weight(prims_algo(graph,0))
-            if(dimension == 3):
-                graph = genGeoCubeGraph(n)
-                curr_weight += count_weight(prims_algo(graph,0))
-            if(dimension == 4):
-                graph = genGeoHyperCube(n)
-                curr_weight += count_weight(prims_algo(graph,0))
-        MSTweights.append(curr_weight / numtrials)
+        MSTweights.append(randomSample(n,numtrials,dimension))
     plt.figure(figsize=(10,6))
     plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
     plt.xlabel("Number of Vertices (n)")
