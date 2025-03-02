@@ -68,7 +68,29 @@ class Heap:
         if len(self.array) != 0:
             self.minHeapify(self.array[0])
         return min
-  
+
+class UnionFind:
+    def __init__(self, n, x):
+        self.parentNode = list(range(n))
+        self.parentNode[x] = x
+        self.rank = [0]*n
+    
+    def find(self, x):
+        if self.parentNode[x] != x:
+            self.parentNode[x] = self.find(self.parentNode[x])
+        return self.parentNode[x]
+
+    def link(self, x,y):
+        if self.rank[x] > self.rank[y]:
+            return self.link(self, y, x)
+        elif self.rank[x] == self.rank[y]:
+            self.rank[y] += 1
+        self.parentNode[x] = y
+        return y
+    
+    def union(self, x,y):
+        self.link(self.find(x), self.find(y))
+
 
 def prims_algo(graph, source):
     verts = graph.verts
