@@ -72,16 +72,16 @@ class Heap:
 
 def prims_algo(graph, source):
     verts = graph.verts
-    print("Vertices:", verts)
+    #print("Vertices:", verts)
     edges = graph.edges
-    print("Edges: " + str(edges), "with length", len(edges)) 
+    #print("Edges: " + str(edges), "with length", len(edges)) 
 
     #initialize all distances to inf, aside from source
     dist = [math.inf]*verts
     dist[source] = 0
     prev = [-1]*verts
-    print(dist)
-    print(prev)
+    #print(dist)
+    #print(prev)
     
     mst = []
     in_mst = [False]*verts
@@ -89,12 +89,12 @@ def prims_algo(graph, source):
 
     heap_graph.insert([source, 0])
 
-    print(heap_graph.array)
+    #print(heap_graph.array)
 
     while heap_graph.array:
         #u = [vertex label, vertex value]
         u = heap_graph.extractMin()
-        print('Min:', u)
+        #print('Min:', u)
 
         if not in_mst[u[0]]:
 
@@ -102,15 +102,15 @@ def prims_algo(graph, source):
             in_mst[u[0]] = True
             
             for i in range(verts):
-                print("We check if", i, "is key in", edges[u[0]])
+                #print("We check if", i, "is key in", edges[u[0]])
                 if i in edges[u[0]]:
-                    print("Tis")
-                    print(i, "has weight", graph.edges[u[0]][i])
+                    #print("Tis")
+                    #print(i, "has weight", graph.edges[u[0]][i])
                     if i not in mst and graph.edges[u[0]][i] < dist[i]:
                         dist[i] = graph.edges[u[0]][i]
                         prev[i] = u[0]
                         heap_graph.insert([i, dist[i]])
-            print(heap_graph.array,'\n')
+            #print(heap_graph.array,'\n')
 
     return mst
 
@@ -154,13 +154,14 @@ def randomSample(numpoints, numtrials, dimension):
             curr_weight += count_weight(prims_algo(graph, 0))
     average = curr_weight / numtrials
     print(average, numpoints, numtrials, dimension)
+    return average
 def figureGen(numtrials, dimension):
     sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
     MSTweights = []
     if(dimension == 1):
         sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
     for n in sizes:
-        MSTweights.append(randomSample(n,numtrials,dimension)[0])
+        MSTweights.append(randomSample(n,numtrials,dimension))
     plt.figure(figsize=(10,6))
     plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
     plt.xlabel("Number of Vertices (n)")
