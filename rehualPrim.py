@@ -84,6 +84,7 @@ def prims_algo(graph, source):
     print(prev)
     
     mst = []
+    in_mst = [False]*verts
     heap_graph = Heap()
 
     heap_graph.insert([source, 0])
@@ -95,9 +96,10 @@ def prims_algo(graph, source):
         u = heap_graph.extractMin()
         print('Min:', u)
 
-        if u[0] not in mst:
+        if not in_mst[u[0]]:
 
-            mst.append(u[0])
+            mst.append(u)
+            in_mst[u[0]] = True
             
             for i in range(verts):
                 print("We check if", i, "is key in", edges[u[0]])
