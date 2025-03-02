@@ -50,13 +50,9 @@ def genGeoCompGraph(n):
     return g
 
 def genGeoCubeGraph(n):
-    x_values = []
-    y_values = []
-    z_values = []
-    for _ in range(n):
-        x_values.append(np.random.rand())
-        y_values.append(np.random.rand())
-        z_values.append(np.random.rand())
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    z_values = np.random.uniform(low=0,high=1,size=n)
 
     g = Graph(n)
     for i in range(n):
@@ -68,10 +64,10 @@ def genGeoCubeGraph(n):
     return g    
 
 def genGeoHyperCube(n):
-    x_values = []
-    y_values = []
-    z_values = []
-    a_values = []
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    z_values = np.random.uniform(low=0,high=1,size=n)
+    a_values = np.random.uniform(low=0,high=1,size=n)
     for _ in range(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
