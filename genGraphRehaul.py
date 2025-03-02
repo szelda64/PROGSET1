@@ -14,9 +14,8 @@ class Graph:
         self.edges.append(dict())
 
     def add_edge(self, u, v, w):
-        if v not in self.edges[u]:
+        if v not in self.edges[u] and u not in self.edges[v]:
             self.edges[u][v] = w
-        if u not in self.edges[v]:
             self.edges[v][u] = w
         return self
   
@@ -25,7 +24,8 @@ def genCompGraph(n):
     for i in range(n):
         for j in range(n):
             if i < j:
-                g.add_edge(i, j, np.random.rand())
+                weight = np.random.rand()
+                g.add_edge(i, j, weight)
     return g
 
 def genHyperCube(n):
@@ -33,19 +33,18 @@ def genHyperCube(n):
     for i in range(n):
         for j in range(n):
             if i != j and math.log2(abs(i-j)).is_integer():
-                g.add_edge(i, j, np.random.rand())
+                print("Condition fulfilled")
+                print("i, j:",i,j)
+                weight = np.random.rand()
+                g.add_edge(i, j, weight)
     return g
 
 def genGeoCompGraph(n):
-    x_values = []
-    y_values = []
-    for _ in range(n):
-        x_values.append(np.random.rand())
-        y_values.append(np.random.rand())
-
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
     g = Graph(n)
     for i in range(n):
-        for  j in range(n):
+        for j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))
                 g.add_edge(i, j, weight)
@@ -53,13 +52,9 @@ def genGeoCompGraph(n):
     return g
 
 def genGeoCubeGraph(n):
-    x_values = []
-    y_values = []
-    z_values = []
-    for _ in range(n):
-        x_values.append(np.random.rand())
-        y_values.append(np.random.rand())
-        z_values.append(np.random.rand())
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    z_values = np.random.uniform(low=0,high=1,size=n)
 
     g = Graph(n)
     for i in range(n):
@@ -71,10 +66,10 @@ def genGeoCubeGraph(n):
     return g    
 
 def genGeoHyperCube(n):
-    x_values = []
-    y_values = []
-    z_values = []
-    a_values = []
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    z_values = np.random.uniform(low=0,high=1,size=n)
+    a_values = np.random.uniform(low=0,high=1,size=n)
     for _ in range(n):
         x_values.append(np.random.rand())
         y_values.append(np.random.rand())
