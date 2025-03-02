@@ -3,7 +3,7 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from genGraphRehaul import Graph, genCompGraph, genHyperCube, genGeoCompGraph, genGeoCubeGraph, genGeoHyperCube
+from genGraphRehaul import AMGraph, AMgenCompGraph, AMgenHyperCube, AMgenGeoCompGraph, AMgenGeoCubeGraph, AMgenGeoHyperCube
 
 class Heap:
     def __init__(self):
@@ -152,15 +152,15 @@ def randomSample(numpoints, numtrials, dimension):
     curr_weight = 0
     for _ in range(numtrials):
         if(dimension == 0):
-            graph = genCompGraph(numpoints)
+            graph = AMgenCompGraph(numpoints)
         if(dimension == 1):
-            graph = genHyperCube(numpoints)
+            graph = AMgenHyperCube(numpoints)
         if(dimension == 2):
-            graph = genGeoCompGraph(numpoints)
+            graph = AMgenGeoCompGraph(numpoints)
         if(dimension == 3):
-            graph = genGeoCubeGraph(numpoints)
+            graph = AMgenGeoCubeGraph(numpoints)
         if(dimension == 4):
-            graph = genGeoHyperCube(numpoints)
+            graph = AMgenGeoHyperCube(numpoints)
         #print("New weight:",count_weight(prims_algo(graph,0)))
         curr_weight += count_weight(prims_algo(graph,0))
         #print("Summed weight:",curr_weight)
