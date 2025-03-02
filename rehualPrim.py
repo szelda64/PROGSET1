@@ -95,16 +95,22 @@ def prims_algo(graph, source):
     while heap_graph.array:
         #u = [vertex label, vertex value]
         u = heap_graph.extractMin()
+        print('Min:', u)
 
-        if u not in mst:
-            mst.append(u)
+        if u[0] not in mst:
+
+            mst.append(u[0])
             
             for i in range(verts):
-                if i in graph.edges[u]:
-                    if i not in mst and graph.edges[u][i] > dist[i]:
-                        dist[i] = graph.edges[u][i]
-                        prev[i] = u
+                print("We check if", i, "is key in", edges[u[0]])
+                if i in edges[u[0]]:
+                    print("Tis")
+                    print(i, "has weight", graph.edges[u[0]][i])
+                    if i not in mst and graph.edges[u[0]][i] < dist[i]:
+                        dist[i] = graph.edges[u[0]][i]
+                        prev[i] = u[0]
                         heap_graph.insert([i, dist[i]])
+            print(heap_graph.array,'\n')
 
     return mst
 
