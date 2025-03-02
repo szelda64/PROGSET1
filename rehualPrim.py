@@ -80,12 +80,14 @@ class UnionFind:
     def find(self, x):
         if self.parentNode[x] != x:
             self.parentNode[x] = self.find(self.parentNode[x])
-        print('Found', self.parentNode[x])
+        # print('Found', self.parentNode[x])
         return self.parentNode[x]
 
     def link(self, x,y):
         if self.rank[x] > self.rank[y]:
-            return self.link(self, y, x)
+            print("WITHIN LINK")
+            print("We're inputting", x, "and", y)
+            return self.link(y, x)
         elif self.rank[x] == self.rank[y]:
             self.rank[y] += 1
         self.parentNode[x] = y
@@ -94,6 +96,10 @@ class UnionFind:
     def union(self, x,y):
         print("We're unionizing")
         print(x,y)
+        findx = self.find(x)
+        findy = self.find(y)
+        print("WITHIN UNION")
+        print("We're inputting", findx, "and", findy)
         self.link(self.find(x), self.find(y))
         
 def prims_algo(graph, source):
