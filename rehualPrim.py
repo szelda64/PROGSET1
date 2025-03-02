@@ -3,7 +3,7 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from genGraphRehaul import AMGraph, AMgenCompGraph, AMgenHyperCube, AMgenGeoCompGraph, AMgenGeoCubeGraph, AMgenGeoHyperCube
+from genGraphRehaul import AMGraph, AMgenCompGraph, AMgenHyperCube, AMgenGeoCompGraph, AMgenGeoCubeGraph, AMgenGeoHyperCube, ELGraph, ELgenCompGraph, ELgenHyperCube, ELgenGeoCompGraph, ELgenGeoCubeGraph, ELgenGeoHyperCube
 
 class Heap:
     def __init__(self):
