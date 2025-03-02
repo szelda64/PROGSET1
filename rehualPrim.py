@@ -231,7 +231,7 @@ def figureGen(numtrials, dimension, type):
     plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
     plt.xlabel("Number of Vertices (n)")
     plt.ylabel("Average Weight")
-    plt.title("Average Type",dimension,"Graph Weights Over Large Values of n")
+    plt.title(label="Average Type " + str(dimension) + " Graph Weights Over Large Values of n")
     plt.legend()
     plt.grid(True)
     plt.show()
