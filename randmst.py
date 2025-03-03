@@ -1,6 +1,11 @@
-import sys
-import numpy as np
-import math
+try: 
+    import sys
+    import numpy as np
+    import math
+    #Add as as many imports as you would like to check for.
+except ModuleNotFoundError as e:
+    print("-E- Failed to import prerequisite {}. Please install prior to running this script.".format(e.name))
+    exit(1)
 
 def cutoff(n,weight,dim):
     if(n < 128):
