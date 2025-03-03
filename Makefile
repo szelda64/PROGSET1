@@ -1,3 +1,2 @@
-randmst: randmst.py 
-	python3 ./$< >$@
-	chmod +x $@
+randmst: randmst.py
+	cp randmst.py randmst && chmod +x randmst && ./randmst
