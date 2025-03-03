@@ -23,7 +23,7 @@ def cutoff(n,weight,dim):
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
-        return not(weight > 1/((n ** (2/3))/5))
+        return not(weight > 1/((n ** (2/3))/(20)))
     if(dim == 4):
         return not(weight > 1/((n ** (3/4))/5))
 
