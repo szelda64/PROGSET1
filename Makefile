@@ -1,2 +1,2 @@
-randmst: randmst.py
+all: randmst.py
 	cp randmst.py randmst && chmod +x randmst && ./randmst
