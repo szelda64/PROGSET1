@@ -170,12 +170,6 @@ def ELgenGeoHyperCube(n):
     verts=list(range(n))
     edges=[]
 
-    for _ in range(n):
-        x_values.append(np.random.rand())
-        y_values.append(np.random.rand())
-        z_values.append(np.random.rand())
-        a_values.append(np.random.rand())
-
     for i in range(n):
         for  j in range(n):
             if i != j:
