@@ -25,7 +25,7 @@ def cutoff(n,weight,dim):
     if(dim == 3):
         return not(weight > 1/((n ** (2/3))/(5)))
     if(dim == 4):
-        return not(weight > 1/((n ** (3/4))/(50)))
+        return not(weight > 1/((n ** (3/4))/(5)))
 
   
 def AMgenCompGraph(n):

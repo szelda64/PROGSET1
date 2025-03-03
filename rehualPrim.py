@@ -221,21 +221,21 @@ def randomSample(numpoints, numtrials, dimension, type):
     average = curr_weight / numtrials
     print(average, numpoints, numtrials, dimension)
     return average
-def figureGen(numtrials, dimension, type):
-    sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
-    MSTweights = []
-    if(dimension == 1):
-        sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
-    for n in sizes:
-        if(type=='kruskal'):
-            MSTweights.append(randomSample(n,numtrials,dimension,'kruskal'))
-        elif(type=='prim'):
-            MSTweights.append(randomSample(n,numtrials,dimension,'prim'))
-    plt.figure(figsize=(10,6))
-    plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
-    plt.xlabel("Number of Vertices (n)")
-    plt.ylabel("Average Weight")
-    plt.title(label="Average Type " + str(dimension) + " Graph Weights Over Large Values of n")
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+#def figureGen(numtrials, dimension, type):
+ #   sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
+  #  MSTweights = []
+   # if(dimension == 1):
+    #    sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144]
+    #for n in sizes:
+     #   if(type=='kruskal'):
+      #      MSTweights.append(randomSample(n,numtrials,dimension,'kruskal'))
+       # elif(type=='prim'):
+        #    MSTweights.append(randomSample(n,numtrials,dimension,'prim'))
+    #plt.figure(figsize=(10,6))
+    #plt.plot(sizes,MSTweights,label="Average Weights",marker='o')
+    #plt.xlabel("Number of Vertices (n)")
+    #plt.ylabel("Average Weight")
+    #plt.title(label="Average Type " + str(dimension) + " Graph Weights Over Large Values of n")
+    #plt.legend()
+    #plt.grid(True)
+    #plt.show()
