@@ -219,8 +219,7 @@ def randomSample(numpoints, numtrials, dimension, type):
             curr_weight += count_weight(kruskals(graph))
         #print("Summed weight:",curr_weight)
     average = curr_weight / numtrials
-    print(average, numpoints, numtrials, dimension)
-    return average
+    return average, numpoints, numtrials, dimension
 #def figureGen(numtrials, dimension, type):
  #   sizes = [128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
   #  MSTweights = []
