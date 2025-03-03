@@ -1,3 +1,3 @@
-python_program: randmst.py
+randmst: randmst.py
   python ./$< >$@
   chmod +x $@
