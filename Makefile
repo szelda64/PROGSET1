@@ -1,3 +1,3 @@
 randmst: randmst.py
-  python ./$< >$@
-  chmod +x $@
+  ^Ipython ./$< >$@
+  ^Ichmod +x $@
