@@ -5,7 +5,7 @@ class AMGraph:
 
     def __init__(self, n, edges = None):
         self.verts = n
-        self.edges = [dict() for lst in edges]
+        self.edges = [dict() for _ in range(n)]
 
     def add_edge(self, u, v, w):
         if v not in self.edges[u] and u not in self.edges[v]:
@@ -23,9 +23,9 @@ def cutoff(n,weight,dim):
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
-        return not(weight > 1/((n ** (2/3))/(20)))
+        return not(weight > 1/((n ** (2/3)-n)/(20)))
     if(dim == 4):
-        return not(weight > 1/((n ** (3/4))/5))
+        return not(weight > 1/((n ** (3/4))/20))
 
   
 def AMgenCompGraph(n):
@@ -83,11 +83,6 @@ def AMgenGeoHyperCube(n):
     y_values = np.random.uniform(low=0,high=1,size=n)
     z_values = np.random.uniform(low=0,high=1,size=n)
     a_values = np.random.uniform(low=0,high=1,size=n)
-    for _ in range(n):
-        x_values.append(np.random.rand())
-        y_values.append(np.random.rand())
-        z_values.append(np.random.rand())
-        a_values.append(np.random.rand())
 
     g = AMGraph(n)
     for i in range(n):
