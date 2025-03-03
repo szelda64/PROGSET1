@@ -288,10 +288,10 @@ def randomSample(numpoints, numtrials, dimension):
     average = curr_weight / numtrials
     return average, numpoints, numtrials, dimension
 
-if(len(sys.argv) != 5):
-    print("Incorrect number of command lines. randmst terminal usage is: \n")
-    print("python randmst.py [flag] [numpoints] [numtrials] [dimension]")
-    sys.exit()
+#if(len(sys.argv) != 5):
+    #print("Incorrect number of command lines. randmst terminal usage is: \n")
+    #print("python randmst.py [flag] [numpoints] [numtrials] [dimension]")
+    #sys.exit()
 try:
     global flag
     flag = int(sys.argv[1])
