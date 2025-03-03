@@ -153,9 +153,11 @@ def kruskals(graph):
     #print(sortedEdges)
 
     mst = []
-    unionfind_graph = UnionFind(len(verts))
 
-    for i in range(len(verts)):
+    unionfind_graph = UnionFind(verts)
+    cost = 0
+
+    for i in range(verts):
         unionfind_graph.makeSet(i)
     
     #e = [[u, v], weight]
@@ -166,6 +168,8 @@ def kruskals(graph):
         if unionfind_graph.find(e[0][0]) != unionfind_graph.find(e[0][1]):
             mst.append(e)
             unionfind_graph.union(e[0][0], e[0][1])
+            if len(mst) == verts - 1:
+                break
 
     return mst
     

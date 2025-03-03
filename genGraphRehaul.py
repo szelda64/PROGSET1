@@ -97,7 +97,6 @@ def AMgenGeoHyperCube(n):
 #################
 
 def ELgenCompGraph(n):
-    verts=list(range(n))
     edges=[]
     for i in range(n):
         for j in range(n):
@@ -105,12 +104,11 @@ def ELgenCompGraph(n):
                 weight = np.random.rand()
                 if(cutoff(n,weight,0)):
                     edges.append([[i,j], weight])
-    g = [verts,edges]
+    g = [n,edges]
     return g
 
 
 def ELgenHyperCube(n):
-    verts=list(range(n))
     edges=[]
     for i in range(n):
         for j in range(n):
@@ -120,14 +118,13 @@ def ELgenHyperCube(n):
                 weight = np.random.rand()
                 if(cutoff(n,weight,1)):
                     edges.append([[i,j], weight])
-    g = [verts,edges]
+    g = [n,edges]
     return g
 
 def ELgenGeoCompGraph(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
 
-    verts=list(range(n))
     edges=[]
 
     for i in range(n):
@@ -136,7 +133,7 @@ def ELgenGeoCompGraph(n):
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))
                 if(cutoff(n,weight,2)):
                     edges.append([[i,j], weight])
-    g = [verts,edges]
+    g = [n,edges]
     return g
 
 def ELgenGeoCubeGraph(n):
@@ -144,7 +141,6 @@ def ELgenGeoCubeGraph(n):
     y_values = np.random.uniform(low=0,high=1,size=n)
     z_values = np.random.uniform(low=0,high=1,size=n)
 
-    verts=list(range(n))
     edges=[]
 
     for i in range(n):
@@ -153,7 +149,7 @@ def ELgenGeoCubeGraph(n):
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))
                 if(cutoff(n,weight,3)):
                     edges.append([[i,j], weight])
-    g = [verts,edges]
+    g = [n,edges]
     return g    
 
 def ELgenGeoHyperCube(n):
@@ -161,8 +157,6 @@ def ELgenGeoHyperCube(n):
     y_values = np.random.uniform(low=0,high=1,size=n)
     z_values = np.random.uniform(low=0,high=1,size=n)
     a_values = np.random.uniform(low=0,high=1,size=n)
-
-    verts=list(range(n))
     edges=[]
 
     for i in range(n):
@@ -171,5 +165,5 @@ def ELgenGeoHyperCube(n):
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-z_values[j-1]) ** 2)+(abs(a_values[i-1]-a_values[j-1]) ** 2))
                 if(cutoff(n,weight,4)):
                     edges.append([[i,j], weight])
-    g = [verts,edges]
+    g = [n,edges]
     return g
