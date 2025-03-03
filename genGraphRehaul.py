@@ -19,13 +19,13 @@ def cutoff(n,weight,dim):
     if(dim == 0):
         return not(weight > 1/(n/3))
     if(dim == 1):
-        return not(weight > 1/(math.log2(n)/5))
+        return not(weight > 1/(math.log2(n)/2))
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
-        return not(weight > 1/((n ** (2/3)-n)/(20)))
+        return not(weight > 1/((n ** (2/3))/(5)))
     if(dim == 4):
-        return not(weight > 1/((n ** (3/4))/20))
+        return not(weight > 1/((n ** (3/4))/(50)))
 
   
 def AMgenCompGraph(n):
@@ -89,8 +89,7 @@ def AMgenGeoHyperCube(n):
         for  j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-z_values[j-1]) ** 2)+(abs(a_values[i-1]-a_values[j-1]) ** 2))
-                if(cutoff(n,weight,4)):
-                    g.add_edge(i, j, weight)
+                g.add_edge(i, j, weight)
 
     return g
 
