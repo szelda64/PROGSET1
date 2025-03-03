@@ -29,7 +29,7 @@ try:
 except ValueError:
     print("dimension must be an integer.")
     sys.exit()
-start = time.time()
+#start = time.time()
 randomSample(nump,numt,dim,'kruskal')
-stop = time.time() - start
-print("Runtime:",stop,"seconds")
+#stop = time.time() - start
+#print("Runtime:",stop,"seconds")
