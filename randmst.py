@@ -144,6 +144,22 @@ def AMgenHyperCube(n):
                     g.add_edge(i, j, weight)
     return g
 
+def AMgenGeoCubeGraph(n):
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    z_values = np.random.uniform(low=0,high=1,size=n)
+
+    g = AMGraph(n)
+    for i in range(n):
+        for  j in range(n):
+            if i != j:
+                weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))
+                if(cutoff(n,weight,3)):
+                    g.add_edge(i, j, weight)
+
+    return g   
+
+
 def AMgenGeoHyperCube(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
@@ -163,18 +179,41 @@ def cutoff(n,weight,dim):
     if(n < 128):
         return True
     if(dim == 0):
-        return not(weight > 0.024)
+        if(n == 128):
+            return not(weight > 0.05)
+        else:
+            return not(weight > 0.024)
     if(dim == 1):
-        if(n < 512):
+        if(n == 128):
+            return not(weight > 0.27)
+        elif(n < 512):
             return not(weight > 0.25)
+        elif(n == 1024):
+            return not(weight > 0.2)
+        elif(n == 2048):
+            return not(weight > 0.18)
+        elif(n == 4096):
+            return not(weight > 0.16)
         else:
             return not(weight > 0.215)
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
-        return not(weight > 2)
+        if(n == 128):
+            return not(weight > 0.25)
+        elif(n == 256):
+            return not(weight > 0.18)
+        elif(n == 512):
+            return not(weight > 0.14)
+        elif(n == 1024):
+            return not(weight > 0.11)
+        elif(n == 2048):
+            return not(weight > 0.082)
+        else:
+            return not(weight > 0.065)
     if(dim == 4):
-        return not(weight > 0.5)
+        if(n < 2048):
+            return not(weight > 0.5)
 
 def ELgenCompGraph(n):
     edges=[]
@@ -430,10 +469,10 @@ def randomSample(numpoints, numtrials, dimension):
         if(dimension == 2):
             graph = ELgenGeoCompGraph(numpoints)
         if(dimension == 3):
-            graph = ELgenGeoCubeGraph(numpoints)
+            graph = AMgenGeoCubeGraph(numpoints)
         if(dimension == 4):
             graph = ELgenGeoHyperCube(numpoints)
-        if(dimension == 0 or dimension == 2 or dimension == 3 or dimension == 4):
+        if(dimension == 0 or dimension == 2 or dimension == 4):
             curr_weight += count_weight(kruskals(graph))
         else:
             curr_weight += count_weight(prims_algo(graph,0))
