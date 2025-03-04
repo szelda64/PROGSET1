@@ -402,7 +402,7 @@ def randomSample(numpoints, numtrials, dimension):
             graph = ELgenGeoCubeGraph(numpoints)
         if(dimension == 4):
             graph = ELgenGeoHyperCube(numpoints)
-        if(dimension == 0 or dimension == 1):
+        if(dimension == 1):
             curr_weight += count_weight(kruskals(graph))
         else:
             curr_weight += count_weight(prims_algo(graph,0))
