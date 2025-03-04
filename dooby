@@ -144,6 +144,34 @@ def AMgenHyperCube(n):
                     g.add_edge(i, j, weight)
     return g
 
+def AMgenGeoCompGraph(n):
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    g = AMGraph(n)
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2))
+                if(cutoff(n,weight,2)):
+                    g.add_edge(i, j, weight)
+
+    return g
+
+def AMgenGeoCubeGraph(n):
+    x_values = np.random.uniform(low=0,high=1,size=n)
+    y_values = np.random.uniform(low=0,high=1,size=n)
+    z_values = np.random.uniform(low=0,high=1,size=n)
+
+    g = AMGraph(n)
+    for i in range(n):
+        for  j in range(n):
+            if i != j:
+                weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-y_values[j-1]) ** 2))
+                if(cutoff(n,weight,3)):
+                    g.add_edge(i, j, weight)
+
+    return g    
+
 def AMgenGeoHyperCube(n):
     x_values = np.random.uniform(low=0,high=1,size=n)
     y_values = np.random.uniform(low=0,high=1,size=n)
@@ -155,7 +183,8 @@ def AMgenGeoHyperCube(n):
         for  j in range(n):
             if i != j:
                 weight = math.sqrt((abs(x_values[i-1]-x_values[j-1]) ** 2) + (abs(y_values[i-1] - y_values[j-1]) ** 2)+(abs(z_values[i-1]-z_values[j-1]) ** 2)+(abs(a_values[i-1]-a_values[j-1]) ** 2))
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,4)):
+                    g.add_edge(i, j, weight)
 
     return g
 
@@ -163,7 +192,7 @@ def cutoff(n,weight,dim):
     if(n < 128):
         return True
     if(dim == 0):
-        return not(weight > 0.024)
+        return not(weight > 1/(n/3))
     if(dim == 1):
         return not(weight > 0.239)
     if(dim == 2):
@@ -421,15 +450,16 @@ def randomSample(numpoints, numtrials, dimension):
     curr_weight = 0
     for _ in range(numtrials):
         if(dimension == 0):
-            graph = ELgenCompGraph(numpoints)
+            graph = AMgenCompGraph(numpoints)
         if(dimension == 1):
             graph = AMgenHyperCube(numpoints)
         if(dimension == 2):
-            graph = ELgenGeoCompGraph(numpoints)
+            graph = AMgenCompGraph(numpoints)
         if(dimension == 3):
             graph = ELgenGeoCubeGraph(numpoints)
         if(dimension == 4):
             graph = ELgenGeoHyperCube(numpoints)
+
         if(dimension == 0 or dimension == 2 or dimension == 3 or dimension == 4):
             curr_weight += count_weight(kruskals(graph))
         else:
