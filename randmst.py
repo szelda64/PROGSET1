@@ -150,7 +150,7 @@ def cutoff(n,weight,dim):
     if(dim == 0):
         return not(weight > 0.024)
     if(dim == 1):
-        return not(weight > 0.17)
+        return not(weight > 0.165)
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
