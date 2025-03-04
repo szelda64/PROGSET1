@@ -128,8 +128,7 @@ def AMgenCompGraph(n):
         for j in range(n):
             if i < j:
                 weight = np.random.rand()
-                if(cutoff(n,weight,0)):
-                    g.add_edge(i, j, weight)
+                g.add_edge(i, j, weight)
     return g
 
 def cutoff(n,weight,dim):
@@ -394,7 +393,7 @@ def randomSample(numpoints, numtrials, dimension):
     curr_weight = 0
     for _ in range(numtrials):
         if(dimension == 0):
-            graph = ELgenCompGraph(numpoints)
+            graph = AMgenCompGraph(numpoints)
         if(dimension == 1):
             graph = ELgenHyperCube(numpoints)
         if(dimension == 2):
