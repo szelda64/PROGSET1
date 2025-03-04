@@ -150,7 +150,7 @@ def cutoff(n,weight,dim):
     if(dim == 0):
         return not(weight > 0.024)
     if(dim == 1):
-        return not(weight > 0.7)
+        return not(weight > 0.239)
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
@@ -408,14 +408,14 @@ def randomSample(numpoints, numtrials, dimension):
         if(dimension == 0):
             graph = ELgenCompGraph(numpoints)
         if(dimension == 1):
-            graph = ELgenHyperCube(numpoints)
+            graph = AMgenHyperCube(numpoints)
         if(dimension == 2):
             graph = ELgenGeoCompGraph(numpoints)
         if(dimension == 3):
             graph = ELgenGeoCubeGraph(numpoints)
         if(dimension == 4):
             graph = ELgenGeoHyperCube(numpoints)
-        if(dimension == 1 or dimension == 0 or dimension == 2):
+        if(dimension == 0 or dimension == 2):
             curr_weight += count_weight(kruskals(graph))
         else:
             curr_weight += count_weight(prims_algo(graph,0))
