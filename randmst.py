@@ -132,6 +132,18 @@ def AMgenCompGraph(n):
                     g.add_edge(i, j, weight)
     return g
 
+def AMgenHyperCube(n):
+    g = AMGraph(n)
+    for i in range(n):
+        for j in range(n):
+            if i != j and math.log2(abs(i-j)).is_integer():
+                #print("Condition fulfilled")
+                #print("i, j:",i,j)
+                weight = np.random.rand()
+                if(cutoff(n,weight,1)):
+                    g.add_edge(i, j, weight)
+    return g
+
 def cutoff(n,weight,dim):
     if(n < 128):
         return True
