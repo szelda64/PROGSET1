@@ -132,13 +132,25 @@ def AMgenCompGraph(n):
                     g.add_edge(i, j, weight)
     return g
 
+def AMgenHyperCube(n):
+    g = AMGraph(n)
+    for i in range(n):
+        for j in range(n):
+            if i != j and math.log2(abs(i-j)).is_integer():
+                #print("Condition fulfilled")
+                #print("i, j:",i,j)
+                weight = np.random.rand()
+                if(cutoff(n,weight,1)):
+                    g.add_edge(i, j, weight)
+    return g
+
 def cutoff(n,weight,dim):
     if(n < 128):
         return True
     if(dim == 0):
         return not(weight > 1/(n/3))
     if(dim == 1):
-        return not(weight > 1/(math.log2(n)/n))
+        return not(weight > 0.17)
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
@@ -166,8 +178,7 @@ def ELgenHyperCube(n):
                 #print("Condition fulfilled")
                 #print("i, j:",i,j)
                 weight = np.random.rand()
-                if(cutoff(n,weight,1)):
-                    edges.append([[i,j], weight])
+                edges.append([[i,j], weight])
     g = [n,edges]
     return g
 
