@@ -165,7 +165,10 @@ def cutoff(n,weight,dim):
     if(dim == 0):
         return not(weight > 0.024)
     if(dim == 1):
-        return not(weight > 0.23)
+        if(n < 512):
+            return not(weight > 0.25)
+        else:
+            return not(weight > 0.215)
     if(dim == 2):
         return not(weight > 1/((n ** (1/2))/5))
     if(dim == 3):
