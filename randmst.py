@@ -128,7 +128,8 @@ def AMgenCompGraph(n):
         for j in range(n):
             if i < j:
                 weight = np.random.rand()
-                g.add_edge(i, j, weight)
+                if(cutoff(n,weight,0)):
+                    g.add_edge(i, j, weight)
     return g
 
 def cutoff(n,weight,dim):
