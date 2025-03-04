@@ -283,4 +283,5 @@ nump = int(sys.argv[2])
 numt = int(sys.argv[3])
 dim = int(sys.argv[4])
 
-randomSample(nump,numt,dim)
+result = randomSample(nump,numt,dim)
+print(f"{result[0]} {result[1]} {result[2]} {result[3]}")
